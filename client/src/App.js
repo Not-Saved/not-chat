@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import Chat from "./Chat";
 import UserContext from "context";
 import useCurrentUser from "hooks/useCurrentUser";
+import useWindowSize from "hooks/useWindowSize";
 import { apiRequest } from "./api";
 
 function App() {
 	const { user, error, getUser, logout } = useCurrentUser(null);
 	const [messages, setMessages] = useState(null);
+	useWindowSize();
 
 	async function getMessages(roomId) {
 		const response = await apiRequest({ url: `rooms/${roomId}/messages` });
