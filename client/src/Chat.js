@@ -3,8 +3,8 @@ import useSocket from "hooks/useSocket";
 
 import "./chat.css";
 
-function Chat({ user }) {
-	const { messages, sendMessage } = useSocket();
+function Chat({ user, chatMessages }) {
+	const { messages, sendMessage } = useSocket(chatMessages);
 	const [message, setMessage] = React.useState("");
 
 	function renderMessages() {
@@ -23,9 +23,6 @@ function Chat({ user }) {
 	return (
 		<div className="chat">
 			<div className="top">
-				<div className="icon container">
-					<i className="paper plane icon"></i>
-				</div>
 				<div className="text">Chat</div>
 			</div>
 			<div className="middle">

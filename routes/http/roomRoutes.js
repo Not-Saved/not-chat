@@ -37,7 +37,7 @@ module.exports = app => {
 			user.rooms.push(room);
 			await user.save();
 
-			res.send(room);
+			res.send(user);
 		} catch (e) {
 			console.log(e);
 			res.status(400).send(e);
@@ -59,7 +59,7 @@ module.exports = app => {
 			user.rooms = _.uniqWith([room._id, ...user.rooms], _.isEqual);
 			await user.save();
 
-			res.send(room);
+			res.send(user);
 		} catch (e) {
 			console.log(e);
 			res.status(400).send(e);

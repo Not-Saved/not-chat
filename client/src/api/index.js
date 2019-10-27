@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const notChessAxios = axios.create({
+const api = axios.create({
 	baseURL: "/api"
 });
 
-export const notChess = async config => {
+export const apiRequest = async config => {
 	try {
-		const response = await notChessAxios.request(config);
+		const response = await api.request(config);
 		return response;
 	} catch (e) {
 		throw e;

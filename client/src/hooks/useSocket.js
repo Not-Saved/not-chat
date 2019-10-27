@@ -1,24 +1,26 @@
 import React from "react";
 import io from "socket.io-client";
-const socket = io.connect("localhost:5000");
 
-export default function(props) {
-	const [state, dispatch] = React.useReducer(reducer, []);
+function joinRoom(socket, room) {
+	socket.emit("join_room", room);
+}
 
-	function joinRoom(room) {
-		socket.emit("join_room", room);
-	}
+function sendMessage(socket, msg) {
+	socket.emit("message", "5db0a60c89a5582114d5c2e3", msg);
+}
 
-	function sendMessage(msg) {
-		socket.emit("message", "5db0a60c89a5582114d5c2e3", msg);
-	}
+export default function(initialMessages = []) {
+	const [state, dispatch] = React.useReducer(reducer, initialMessages);
+	const [socket] = React.useState(() => io.connect("localhost:5000"));
 
 	React.useEffect(() => {
-		joinRoom("5db0a60c89a5582114d5c2e3");
-		socket.on("message", msg => {
-			dispatch({ type: "MESSAGE", payload: msg });
-		});
-	}, []);
+		if (socket) {
+			joinRoom(socket, "5db0a60c89a5582114d5c2e3");
+			socket.on("message", msg => {
+				dispatch({ type: "MESSAGE", payload: msg });
+			});
+		}
+	}, [socket]);
 
 	return { messages: state, sendMessage, joinRoom };
 }
