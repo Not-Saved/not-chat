@@ -7,6 +7,7 @@ function Chat({ user, chatMessages }) {
 	const { messages, sendMessage } = useSocket(chatMessages);
 	const [message, setMessage] = React.useState("");
 	const bottomElement = React.useRef(null);
+	const inputElement = React.useRef(null);
 
 	function renderMessages() {
 		return messages.map((message, idx) => (
@@ -23,6 +24,7 @@ function Chat({ user, chatMessages }) {
 			sendMessage(message);
 			setMessage("");
 		}
+		inputElement.current.focus();
 	}
 
 	function onButtonPress(e) {
@@ -30,6 +32,7 @@ function Chat({ user, chatMessages }) {
 			sendMessage(message);
 			setMessage("");
 		}
+		inputElement.current.focus();
 	}
 
 	React.useEffect(() => {
@@ -50,6 +53,7 @@ function Chat({ user, chatMessages }) {
 			<div className="bottom">
 				<div className="ui action icon input">
 					<input
+						ref={inputElement}
 						type="text"
 						placeholder="Type..."
 						value={message}
