@@ -7,6 +7,10 @@
 	height: 40px;
 }
 
+.clickable {
+	cursor: pointer;
+}
+
 .chat .top .icon.container {
 	height: 40px;
 }
@@ -25,6 +29,10 @@
 	overflow: auto;
 	height: calc(100vh - 80px);
 	max-height: calc(100vh - 80px);
+}
+
+.chat .middle::-webkit-scrollbar {
+	width: 5px;
 }
 
 .chat .middle .summary {
@@ -54,8 +62,15 @@
 	height: 100%;
 }
 
+.chat .bottom .ui.input .icon.button {
+	border-radius: 0px;
+	border: 0;
+	background: unset;
+}
+
 .chat .bottom input {
 	border: 0;
+	border-radius: 0;
 }
 
 .chat .ui.basic.label {

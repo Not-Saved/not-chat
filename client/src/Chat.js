@@ -6,6 +6,7 @@ import "./chat.css";
 function Chat({ user, chatMessages }) {
 	const { messages, sendMessage } = useSocket(chatMessages);
 	const [message, setMessage] = React.useState("");
+	const bottomElement = React.useRef(null);
 
 	function renderMessages() {
 		return messages.map((message, idx) => (
@@ -13,12 +14,27 @@ function Chat({ user, chatMessages }) {
 		));
 	}
 
+	function scrollToBottom() {
+		bottomElement.current.scrollIntoView();
+	}
+
 	function onKeyPress(e) {
-		if (e.key === "Enter" && e.target.value) {
-			sendMessage(e.target.value);
+		if (e.key === "Enter" && message) {
+			sendMessage(message);
 			setMessage("");
 		}
 	}
+
+	function onButtonPress(e) {
+		if (message) {
+			sendMessage(message);
+			setMessage("");
+		}
+	}
+
+	React.useEffect(() => {
+		scrollToBottom();
+	}, [messages]);
 
 	return (
 		<div className="chat">
@@ -26,10 +42,13 @@ function Chat({ user, chatMessages }) {
 				<div className="text">Chat</div>
 			</div>
 			<div className="middle">
-				<div className="ui small feed">{renderMessages()}</div>
+				<div className="ui small feed">
+					{renderMessages()}
+					<div ref={bottomElement}></div>
+				</div>
 			</div>
 			<div className="bottom">
-				<div className="ui icon input">
+				<div className="ui action icon input">
 					<input
 						type="text"
 						placeholder="Type..."
@@ -37,7 +56,9 @@ function Chat({ user, chatMessages }) {
 						onChange={e => setMessage(e.target.value)}
 						onKeyPress={onKeyPress}
 					/>
-					<i className="send icon"></i>
+					<button class="ui icon button" onClick={onButtonPress}>
+						<i class="send icon"></i>
+					</button>
 				</div>
 			</div>
 		</div>
