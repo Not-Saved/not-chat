@@ -1,0 +1,63 @@
+.chat .top {
+	border-bottom: 1px solid lightgrey;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 40px;
+}
+
+.chat .top .icon.container {
+	height: 40px;
+}
+
+.chat .top i {
+	font-size: 25px;
+}
+
+.chat .top .text {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.chat .middle {
+	padding: 5px;
+	overflow: auto;
+	height: calc(100vh - 80px);
+	max-height: calc(100vh - 80px);
+}
+
+.chat .middle .summary {
+	text-align: left;
+}
+
+.chat .middle .creator.event .summary {
+	text-align: right;
+}
+
+.chat .middle .creator.event .ui.basic.label {
+	color: rgb(56, 146, 56);
+	border-color: rgb(56, 146, 56);
+}
+
+.chat .bottom {
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	height: 40px;
+	border-top: 1px solid lightgrey;
+}
+
+.chat .bottom .ui.input {
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.chat .bottom input {
+	border: 0;
+}
+
+.chat .ui.basic.label {
+	font-weight: normal;
+	font-size: 13px;
+}
