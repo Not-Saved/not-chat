@@ -11,7 +11,7 @@ function sendMessage(socket, msg) {
 
 export default function(initialMessages = []) {
 	const [state, dispatch] = React.useReducer(reducer, initialMessages);
-	const [socket] = React.useState(() => io.connect("localhost:5000"));
+	const [socket] = React.useState(() => io.connect(process.env.REACT_APP_WS_DOMAIN));
 
 	React.useEffect(() => {
 		if (socket) {
