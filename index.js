@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 //CREATE SERVER INSTANCE
 const app = express();
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, { path: "/ws/socket.io" });
 
 //IMPORT MONGOOSE MODELS
 require("./models");
@@ -13,21 +13,17 @@ require("./models");
 //IMPORT PASSPORT SERVICE
 require("./services/passport");
 
-//ADD SERVER MIDDLEWARES (SESSION, BODYPARSER...)
-require("./middlewares/serverMiddlewares")(app, io);
+//ADD PARSING MIDDLEWARES
+require("./middlewares/server/request")(app);
 
-//IMPORT SERVER ROUTES
+//ADD SESSION MIDDLEWARES
+require("./middlewares/server/session")(app, io);
+
+//IMPORT SERVER ROUTES AND WS EVENTS HANDLERS
 require("./routes")(app, io);
 
-//SERVE HTML IN PRODUCTION
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static("client/build"));
-
-	const path = require("path");
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-	});
-}
+//SERVE STATIC FILES
+require("./middlewares/server/static")(app);
 
 //CONNECT TO MONGODB AND START SERVER
 mongoose.connect(keys.mongoURI, { useFindAndModify: false });

@@ -2,7 +2,7 @@ const _ = require("lodash");
 const mongoose = require("mongoose");
 const Room = mongoose.model("rooms");
 
-const requireLogin = require("../../middlewares/requireLogin");
+const requireLogin = require("../../middlewares/routes/requireLogin");
 
 module.exports = app => {
 	app.get("/api/rooms", requireLogin, async (req, res) => {

@@ -60,8 +60,8 @@ function Chat({ user, chatMessages }) {
 						onChange={e => setMessage(e.target.value)}
 						onKeyPress={onKeyPress}
 					/>
-					<button class="ui icon button" onClick={onButtonPress}>
-						<i class="send icon"></i>
+					<button className="ui icon button" onClick={onButtonPress}>
+						<i className="send icon"></i>
 					</button>
 				</div>
 			</div>
@@ -70,21 +70,29 @@ function Chat({ user, chatMessages }) {
 }
 
 function Message({ message, user }) {
+	function renderContent() {
+		if (message.user) {
+			return (
+				<div className="ui basic label">
+					<strong>{message.user.userName}</strong>: {message.content}
+				</div>
+			);
+		} else {
+			return <div>{message.content}</div>;
+		}
+	}
+
 	return (
 		<div className={`${isMessageCreator(message, user)}event`}>
 			<div className="content">
-				<div className="summary">
-					<div className="ui basic label">
-						<strong>{message.user.userName}</strong>: {message.content}
-					</div>
-				</div>
+				<div className="summary">{renderContent()}</div>
 			</div>
 		</div>
 	);
 }
 
 function isMessageCreator(message, user) {
-	return message.user.id === user.id ? "creator " : "";
+	return message.user && message.user.id === user.id ? "creator " : "";
 }
 
 export default Chat;
