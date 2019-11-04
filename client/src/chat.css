@@ -1,3 +1,7 @@
+#root {
+	height: var(--height);
+}
+
 .chat .top {
 	border-bottom: 1px solid lightgrey;
 	display: flex;
@@ -17,6 +21,12 @@
 
 .chat .top i {
 	font-size: 25px;
+}
+
+.chat .top .sidebar.icon {
+	position: absolute;
+	left: 5px;
+	top: 0;
 }
 
 .chat .top .text {
@@ -76,4 +86,37 @@
 .chat .ui.basic.label {
 	font-weight: normal;
 	font-size: 13px;
+}
+
+.ui.right.thin.sidebar {
+	width: 210px;
+}
+
+.sidebar.content {
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.87);
+	color: white;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.sidebar.content > h2 {
+	width: 80%;
+	text-align: center;
+	padding: 5px;
+	margin: 5px 5px;
+	border-bottom: 2px solid white;
+
+	text-transform: uppercase;
+	font-size: 17px;
+}
+
+.sidebar.content > div {
+	width: 70%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin: 2px;
 }

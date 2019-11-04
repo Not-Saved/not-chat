@@ -1,13 +1,11 @@
-import React from "react";
-import useSocket from "hooks/useSocket";
+import React, { useState, useEffect, useRef } from "react";
 
 import "./chat.css";
 
-function Chat({ user, chatMessages }) {
-	const { messages, sendMessage } = useSocket(chatMessages);
-	const [message, setMessage] = React.useState("");
-	const bottomElement = React.useRef(null);
-	const inputElement = React.useRef(null);
+function Chat({ user, messages, sendMessage }) {
+	const [message, setMessage] = useState("");
+	const bottomElement = useRef(null);
+	const inputElement = useRef(null);
 
 	function renderMessages() {
 		return messages.map((message, idx) => (
@@ -35,15 +33,12 @@ function Chat({ user, chatMessages }) {
 		inputElement.current.focus();
 	}
 
-	React.useEffect(() => {
+	useEffect(() => {
 		scrollToBottom();
 	}, [messages]);
 
 	return (
-		<div className="chat">
-			<div className="top">
-				<div className="text">Chat</div>
-			</div>
+		<>
 			<div className="middle">
 				<div className="ui small feed">
 					{renderMessages()}
@@ -65,7 +60,7 @@ function Chat({ user, chatMessages }) {
 					</button>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

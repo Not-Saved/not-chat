@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import Chat from "./Chat";
 import UserContext from "context";
 import useCurrentUser from "hooks/useCurrentUser";
 import useWindowSize from "hooks/useWindowSize";
 import { apiRequest } from "./api";
+import MainPage from "MainPage";
 
 function App() {
 	const { user, error, getUser, logout } = useCurrentUser(null);
@@ -27,7 +27,7 @@ function App() {
 
 	function renderContent() {
 		if (user && messages) {
-			return <Chat user={user} chatMessages={messages} />;
+			return <MainPage user={user} chatMessages={messages} />;
 		} else if (error) {
 			window.location.href = "/oauth/google";
 		} else {

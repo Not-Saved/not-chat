@@ -1,80 +1,71 @@
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const Message = mongoose.model("messages");
+const User = mongoose.model("users");
+
+const simpleStore = require("../../misc/simpleStore");
+
+const [connections, addSocket, removeSocket] = simpleStore();
+const [rooms, addRoom, removeRoom] = simpleStore();
 
 module.exports = io => {
 	io.on("connection", function(socket) {
 		const user = socket.request.user;
+
 		if (user) {
-			socket.on("join_room", roomId => onJoinRoom(io, user, socket, roomId));
+			const server = { io, socket, user };
+			addSocket(user.id, socket.id);
 
-			socket.on("disconnecting", () => onDisconnect(io, user, socket));
+			//socket.on("join_room", room => onJoinRoom(server, { room}));
+			joinRooms(server);
 
-			socket.on("message", (roomId, msg) => onMessage(io, user, roomId, msg));
+			socket.on("disconnecting", () => onDisconnect(server));
+
+			socket.on("message", (room, msg) => onMessage(server, { room, msg }));
 		}
 	});
 };
 
-function onJoinRoom(io, user, socket, roomId) {
+async function onJoinRoom({ io, socket, user }, { room }) {
 	try {
-		if (!user.rooms.includes(roomId)) throw new Error("User not in room");
-		socket.join(roomId, () => {
-			if (getCurrentUserConnections(io, roomId, user) === 1) {
-				const message = new Message({
-					room: roomId,
-					content: `${user.userName} connected`
-				});
-
-				io.to(roomId).emit("message", message);
-			}
-
-			io.to(roomId).emit("online_users", getRoomConnectedUsers(io, roomId));
-		});
+		const fetchedUser = await User.findById(user.id);
+		if (!fetchedUser.rooms.includes(room)) throw new Error("User not in room");
+		socket.join(room);
+		addRoom(room, user.id);
+		io.to(room).emit("online_users", { room: room, users: _.uniq(rooms[room]) });
 	} catch (e) {
 		socket.emit("errors", e.message);
 	}
 }
 
-function onDisconnect(io, user, socket) {
-	const userRooms = Object.values(socket.rooms);
-	userRooms.forEach(room => {
-		if (getCurrentUserConnections(io, room, user) === 1) {
-			const message = new Message({
-				room: room,
-				content: `${user.userName} disconnected`
-			});
-			io.to(room).emit("message", message);
-		}
-
-		io.to(room).emit(
-			"online_users",
-			getRoomConnectedUsers(io, room).filter(e => e !== user.id)
-		);
+function joinRooms({ io, socket, user }) {
+	user.rooms.forEach(room => {
+		socket.join(room);
+		addRoom(room, user.id);
+		io.to(room).emit("online_users", { room: room, users: _.uniq(rooms[room]) });
 	});
 }
 
-function getRoomConnectedUsers(io, roomId) {
-	const connections = Object.values(io.sockets.sockets);
-	const roomConnections = connections.filter(e => Boolean(e.rooms[roomId]));
-	const roomUsers = roomConnections.map(e => e.client.request.user.id);
-	const uniqueRoomsUsers = _.uniq(roomUsers);
-	return uniqueRoomsUsers;
+function onDisconnect({ io, socket, user }) {
+	const userRooms = Object.values(socket.rooms);
+	userRooms.forEach(room => {
+		removeRoom(room, user.id);
+		io.to(room).emit("online_users", { room: room, users: _.uniq(rooms[room]) });
+	});
+	removeSocket(user.id, socket.id);
 }
 
-function getCurrentUserConnections(io, roomId, user) {
-	const connections = Object.values(io.sockets.sockets);
-	const roomConnections = connections.filter(e => Boolean(e.rooms[roomId]));
-	const roomUsers = roomConnections.map(e => e.client.request.user.id);
-	return roomUsers.filter(e => e === user.id).length;
-}
-
-async function onMessage(io, user, roomId, msg) {
-	if (user.rooms.includes(roomId)) {
-		const message = await new Message({
-			user: user,
-			room: roomId,
-			content: msg
-		}).save();
-		io.to(roomId).emit("message", message);
+async function onMessage({ io, user }, { room, msg }) {
+	try {
+		if (user.rooms.includes(room)) {
+			const message = await new Message({
+				user: user,
+				room: room,
+				content: msg
+			}).save();
+			io.to(room).emit("message", message);
+		}
+	} catch (e) {
+		console.log(e);
 	}
 }

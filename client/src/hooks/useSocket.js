@@ -1,9 +1,11 @@
-import React from "react";
+import { useState, useEffect, useReducer } from "react";
 import io from "socket.io-client";
 
 export default function(initialMessages = []) {
-	const [state, dispatch] = React.useReducer(reducer, initialMessages);
-	const [socket] = React.useState(() => io.connect("", { path: "/ws/socket.io" }));
+	const [messages, messageDispatch] = useReducer(messageReducer, initialMessages);
+	const [onlineUsers, setOnlineUsers] = useState([]);
+
+	const [socket] = useState(() => io.connect("", { path: "/ws/socket.io" }));
 
 	function joinRoom(room) {
 		socket.emit("join_room", room);
@@ -13,17 +15,20 @@ export default function(initialMessages = []) {
 		socket.emit("message", "5db0a60c89a5582114d5c2e3", msg);
 	}
 
-	React.useEffect(() => {
-		joinRoom("5db0a60c89a5582114d5c2e3");
+	useEffect(() => {
 		socket.on("message", msg => {
-			dispatch({ type: "MESSAGE", payload: msg });
+			messageDispatch({ type: "MESSAGE", payload: msg });
 		});
+		socket.on("online_users", ({ room, users }) => {
+			if (room === "5db0a60c89a5582114d5c2e3") setOnlineUsers(users);
+		});
+		return () => socket.disconnect();
 	}, [socket]);
 
-	return { messages: state, sendMessage, joinRoom };
+	return { messages, sendMessage, joinRoom, onlineUsers };
 }
 
-function reducer(state, action) {
+function messageReducer(state, action) {
 	switch (action.type) {
 		case "MESSAGE":
 			return [...state, action.payload];
