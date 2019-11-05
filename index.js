@@ -13,11 +13,14 @@ require("./models");
 //IMPORT PASSPORT SERVICE
 require("./services/passport");
 
-//ADD PARSING MIDDLEWARES
+//ADD PARSING MIDDLEWARE
 require("./middlewares/server/request")(app);
 
-//ADD SESSION MIDDLEWARES
+//ADD SESSION MIDDLEWARE
 require("./middlewares/server/session")(app, io);
+
+//ADD COMPRESSION MIDDLEWARE
+require("./middlewares/server/compression")(app);
 
 //IMPORT SERVER ROUTES AND WS EVENTS HANDLERS
 require("./routes")(app, io);
