@@ -1,0 +1,126 @@
+#root {
+  height: var(--height);
+}
+
+.chat .top {
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
+  height: 40px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.chat .top .icon.container {
+  height: 40px;
+}
+
+.chat .top i {
+  font-size: 25px;
+}
+
+.chat .top .sidebar.icon {
+  position: absolute;
+  left: 5px;
+  top: 0;
+}
+
+.chat .top .text {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.chat .middle {
+  padding: 5px;
+  overflow: auto;
+  height: calc(var(--height) - 80px);
+  max-height: calc(100vh - 80px);
+}
+
+.chat .middle::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat .middle .summary {
+  text-align: left;
+}
+
+.chat .middle .creator.event .summary {
+  text-align: right;
+}
+
+.chat .middle .creator.event .ui.basic.label {
+  color: rgb(56, 146, 56);
+  border-color: rgb(56, 146, 56);
+}
+
+.chat .bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  height: 40px;
+  border-top: 1px solid lightgrey;
+}
+
+.chat .bottom .ui.input {
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.chat .bottom .ui.input .icon.button {
+  border-radius: 0px;
+  border: 0;
+  background: unset;
+}
+
+.chat .bottom input {
+  border: 0;
+  border-radius: 0;
+}
+
+.chat .ui.basic.label {
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.ui.right.thin.sidebar {
+  width: 210px;
+}
+
+.sidebar.content {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.87);
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pushable {
+  height: var(--height);
+}
+
+.sidebar.content > h2 {
+  width: 80%;
+  text-align: center;
+  padding: 5px;
+  margin: 5px 5px;
+  border-bottom: 2px solid white;
+
+  text-transform: uppercase;
+  font-size: 17px;
+}
+
+.sidebar.content > div {
+  width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 2px;
+}
