@@ -1,0 +1,21 @@
+.layout {
+  position: relative;
+  height: calc(var(--height) - 90px);
+  max-height: calc(var(--height) - 90px);
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: transparent;
+}
+
+.layout::-webkit-scrollbar {
+  width: 0px;
+}
+
+.layout > div:first-child > div {
+  margin-top: 5px;
+}
+
+.layout > div:last-child > div {
+  margin-bottom: 5px;
+}

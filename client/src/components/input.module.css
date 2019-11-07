@@ -1,0 +1,57 @@
+.input {
+  width: 100%;
+
+  min-height: 40px;
+  height: max-content;
+  position: fixed;
+  bottom: 0;
+
+  border-top: 1px solid lightgrey;
+  box-shadow: 0px 0 8px rgba(200, 200, 200, 0.6);
+  background: white;
+
+  display: flex;
+  z-index: 10;
+}
+
+.input > textarea {
+  flex-grow: 1;
+  overflow: visible;
+  resize: none;
+  max-height: 100px;
+  line-height: 100%;
+  font-size: 15px;
+  padding: 12px 5px 10px 10px;
+  padding-top: 12px;
+  border: 0px;
+
+  color: rgb(59, 59, 59);
+}
+
+.input > textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.input > .send {
+  visibility: hidden;
+  opacity: 0;
+  max-width: 40px;
+  min-width: 40px;
+  flex-basis: auto;
+  align-self: flex-end;
+  border: 0;
+  background: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.input > .send svg {
+  font-size: 30px;
+  color: grey;
+}
+
+.input > textarea:focus + .send {
+  opacity: 1;
+
+  visibility: visible;
+}
