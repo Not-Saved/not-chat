@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 
 import SEO from "../components/seo"
 import Hamburger from "../components/hamburger"
@@ -12,6 +12,8 @@ const SecondPage = () => {
   const [checked, setChecked] = useState(false)
   const [value, onChange] = useState("")
   const [messages, setMessages] = useState([])
+  const chatRef = useRef(null)
+  const inputRef = useRef(null)
 
   function handleMessage() {
     if (value) {
@@ -19,6 +21,10 @@ const SecondPage = () => {
     }
     onChange("")
   }
+
+  useEffect(() => {
+    chatRef.current.toBottom()
+  }, [messages])
 
   return (
     <>
@@ -29,7 +35,17 @@ const SecondPage = () => {
           onChange={() => setChecked(prev => !prev)}
         />
       </Header>
-      <ChatLayout>
+      <ChatLayout
+        ref={chatRef}
+        input={() => (
+          <Input
+            ref={inputRef}
+            value={value}
+            onChange={onChange}
+            action={handleMessage}
+          />
+        )}
+      >
         <Message text="Hello there" from="Mark" arrow />
         <Message
           text="What's upqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"
@@ -55,11 +71,16 @@ const SecondPage = () => {
           from="Mark"
           arrow
         />
-        {messages.map((message, idx) => (
-          <Message key={idx} from="Me" arrow text={message} mine />
-        ))}
+        {messages.map((message, idx) => {
+          const arrow =
+            (messages[idx - 1] && messages[idx - 1].from !== message.from) ||
+            messages.length === idx + 1
+          return (
+            <Message key={idx} from="Me" text={message} mine arrow={arrow} />
+          )
+        })}
       </ChatLayout>
-      <Input value={value} onChange={onChange} action={handleMessage} />
+
       <Overlay visible={checked}></Overlay>
     </>
   )

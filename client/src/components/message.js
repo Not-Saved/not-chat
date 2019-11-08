@@ -3,7 +3,7 @@ import { FaCheck } from "react-icons/fa"
 
 import styles from "./message.module.css"
 
-const Message = ({ text, from, mine, arrow }) => {
+const Message = React.memo(({ text, from, mine, arrow }) => {
   const isMine = mine ? styles.right : ""
   const isArrow = arrow ? styles.arrow : ""
   return (
@@ -27,6 +27,6 @@ const Message = ({ text, from, mine, arrow }) => {
       </div>
     </div>
   )
-}
+})
 
 export default Message

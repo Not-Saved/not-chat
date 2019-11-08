@@ -6,11 +6,7 @@ import styles from "./input.module.css"
 const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
   const inputRef = useRef()
 
-  useImperativeHandle(ref, () => ({
-    focus: () => {
-      inputRef.current.focus()
-    },
-  }))
+  useImperativeHandle(ref, () => inputRef.current)
 
   function handleChange(e) {
     onChange && onChange(e.target.value)
@@ -48,6 +44,7 @@ const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
         onChange={handleChange}
         onKeyPress={handleKeyPress}
         maxLength={1000}
+        placeholder="Message"
         {...rest}
       />
       <button className={styles.send} onClick={handleClick}>

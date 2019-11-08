@@ -1,10 +1,8 @@
 .input {
   width: 100%;
 
-  min-height: 40px;
+  min-height: 42px;
   height: max-content;
-  position: fixed;
-  bottom: 0;
 
   border-top: 1px solid lightgrey;
   box-shadow: 0px 0 8px rgba(200, 200, 200, 0.6);
@@ -21,8 +19,8 @@
   max-height: 100px;
   line-height: 100%;
   font-size: 15px;
-  padding: 12px 5px 10px 10px;
-  padding-top: 12px;
+  padding: 12px 0px 10px 10px;
+  padding-top: 14px;
   border: 0px;
 
   color: rgb(59, 59, 59);
@@ -33,10 +31,11 @@
 }
 
 .input > .send {
-  visibility: hidden;
-  opacity: 0;
+  visibility: visible;
+  opacity: 1;
   max-width: 40px;
   min-width: 40px;
+
   flex-basis: auto;
   align-self: flex-end;
   border: 0;
@@ -46,7 +45,9 @@
 }
 
 .input > .send svg {
+  position: relative;
   font-size: 30px;
+  bottom: 1px;
   color: grey;
 }
 
