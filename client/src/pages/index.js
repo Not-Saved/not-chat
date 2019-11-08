@@ -12,18 +12,25 @@ const SecondPage = () => {
   const [checked, setChecked] = useState(false)
   const [value, onChange] = useState("")
   const [messages, setMessages] = useState([])
+  const [wasBottom, setWasBottom] = useState(true)
+  const wasBottomRef = useRef(wasBottom)
   const chatRef = useRef(null)
   const inputRef = useRef(null)
 
   function handleMessage() {
     if (value) {
+      setWasBottom(chatRef.current.isBottom())
       setMessages(prev => [...prev, value])
+      onChange("")
     }
-    onChange("")
   }
 
   useEffect(() => {
-    chatRef.current.toBottom()
+    setMessages(prev => [...prev, "hello"])
+  }, [])
+
+  useEffect(() => {
+    wasBottomRef.current && chatRef.current.toBottom()
   }, [messages])
 
   return (
@@ -37,12 +44,13 @@ const SecondPage = () => {
       </Header>
       <ChatLayout
         ref={chatRef}
-        input={() => (
+        input={props => (
           <Input
             ref={inputRef}
             value={value}
             onChange={onChange}
             action={handleMessage}
+            {...props}
           />
         )}
       >

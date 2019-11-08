@@ -1,7 +1,7 @@
 .input {
   width: 100%;
 
-  min-height: 42px;
+  min-height: 45px;
   height: max-content;
 
   border-top: 1px solid lightgrey;
@@ -18,9 +18,8 @@
   resize: none;
   max-height: 100px;
   line-height: 100%;
-  font-size: 15px;
-  padding: 12px 0px 10px 10px;
-  padding-top: 14px;
+  font-size: 16px;
+  padding: 14px 0px 11px 10px;
   border: 0px;
 
   color: rgb(59, 59, 59);
@@ -31,8 +30,8 @@
 }
 
 .input > .send {
-  visibility: visible;
-  opacity: 1;
+  visibility: hidden;
+  opacity: 0;
   max-width: 40px;
   min-width: 40px;
 
@@ -46,13 +45,12 @@
 
 .input > .send svg {
   position: relative;
-  font-size: 30px;
+  font-size: 35px;
   bottom: 1px;
   color: grey;
 }
 
 .input > textarea:focus + .send {
   opacity: 1;
-
   visibility: visible;
 }
