@@ -9,7 +9,6 @@ import {
 
 import Message from "./message"
 import styles from "./messageListVirtualized.module.css"
-import isMobile from "../util/isMobile"
 
 const measurerCache = new CellMeasurerCache({
   minHeight: 49,
@@ -27,24 +26,23 @@ const MessageList = React.forwardRef(
 
     useEffect(() => {
       measurerCache.clear(messages.length - 2, 0)
-    }, [messages])
+      isBottom && setTimeout(toBottom, 10)
+    }, [messages, isBottom, toBottom])
 
     function toBottom() {
-      if (listRef.current) listRef.current.scrollToRow(messages.length)
+      if (listRef.current) listRef.current.scrollToRow(messages.length - 1)
     }
 
     const hideScrollbar = debounce(() => setIsScrolling(false), 800)
 
-    const handleScroll = debounce(
-      ({ clientHeight, scrollHeight, scrollTop }) => {
-        setIsBottom(clientHeight === scrollHeight - scrollTop)
-        hideScrollbar()
-      },
-      50
-    )
+    const handleScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
+      setIsScrolling(true)
+      setIsBottom(clientHeight === scrollHeight - scrollTop)
+      hideScrollbar()
+    }
 
     const handleResize = debounce(() => {
-      if (!isMobile()) measurerCache.clearAll()
+      measurerCache.clearAll()
       isBottom && toBottom()
     }, 50)
 
@@ -96,10 +94,7 @@ const MessageList = React.forwardRef(
             height={height}
             width={width}
             ref={listRef}
-            onScroll={e => {
-              setIsScrolling(true)
-              handleScroll(e)
-            }}
+            onScroll={handleScroll}
             className={`${styles.list} ${scrollClassName}`}
             rowCount={messages.length}
             rowHeight={measurerCache.rowHeight}

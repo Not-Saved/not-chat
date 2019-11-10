@@ -3,7 +3,7 @@ import Input from "../components/input"
 import ChatLayout from "../components/chatLayout"
 import MessageList from "./messageListVirtualized"
 
-const Chat = ({ initialMessages }) => {
+const Chat = ({ initialMessages, header }) => {
   const [value, onChange] = useState("")
   const [messages, setMessages] = useState(initialMessages)
   const [isBottom, setIsBottom] = useState(true)
@@ -14,14 +14,11 @@ const Chat = ({ initialMessages }) => {
   function handleMessage() {
     if (value) {
       onChange("")
+      setIsBottom(true)
+      chatRef.current.toBottom()
       setMessages(prev => [...prev, { text: value, from: "Me" }])
     }
   }
-
-  useEffect(() => {
-    console.log(isBottom)
-    isBottom && chatRef.current.toBottom()
-  }, [messages, isBottom])
 
   const input = (
     <Input
@@ -33,7 +30,7 @@ const Chat = ({ initialMessages }) => {
   )
 
   return (
-    <ChatLayout input={input}>
+    <ChatLayout header={header(chatRef)} input={input}>
       <MessageList
         ref={chatRef}
         messages={messages}

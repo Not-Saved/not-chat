@@ -13,7 +13,7 @@ const SecondPage = () => {
   function loadMessages() {
     const messages = largeString
       .split("u")
-      .slice(0, 200)
+      .slice(0, 300)
       .map((e, index) => {
         const from = index % 2 === 0 ? "Me" : "You"
         return { text: e, from: from }
@@ -22,18 +22,23 @@ const SecondPage = () => {
     return messages
   }
 
-  return (
-    <>
-      <SEO title="Chat" />
+  const header = () => {
+    return (
       <Header>
         <Hamburger
           checked={checked}
           onChange={() => setChecked(prev => !prev)}
         />
       </Header>
-      <Chat initialMessages={loadMessages()} />
+    )
+  }
+
+  return (
+    <div className="page container">
+      <SEO title="Chat" />
+      <Chat initialMessages={loadMessages()} header={header} />
       <Overlay visible={checked}></Overlay>
-    </>
+    </div>
   )
 }
 export default SecondPage

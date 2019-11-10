@@ -20,6 +20,27 @@ div[role="group"][tabindex] {
   height: 100%;
 }
 
+.page.container {
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 1100px) and (min-height: 800px) {
+  div[role="group"][tabindex] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page.container {
+    position: relative;
+    bottom: 3%;
+    border: 1px solid lightgray;
+    max-width: 1000px;
+    max-height: 700px;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
