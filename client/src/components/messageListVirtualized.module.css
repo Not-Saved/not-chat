@@ -1,0 +1,31 @@
+.list .first > div > div {
+  margin-top: 6px;
+}
+
+.list .last > div > div {
+  margin-bottom: 6px;
+}
+
+.list {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.list::-webkit-scrollbar {
+  width: 3px;
+  background-color: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  visibility: hidden;
+  border-radius: 1px;
+  background-color: #0000003b;
+}
+
+.list.scrolling::-webkit-scrollbar-thumb {
+  visibility: visible;
+}

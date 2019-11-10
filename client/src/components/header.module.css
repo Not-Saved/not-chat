@@ -1,5 +1,6 @@
 .header {
-  position: relative;
+  position: absolute;
+  top: 0px;
   height: 45px;
   width: 100vw;
   background: teal;

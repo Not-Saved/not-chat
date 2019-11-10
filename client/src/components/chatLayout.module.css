@@ -1,32 +1,17 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: calc(var(--height) - 45px);
-  max-height: calc(var(--height) - 45px);
+  height: 100%;
+  max-height: 100%;
+  padding-top: 45px;
 }
 
 .layout .messages {
   flex-grow: 1;
-
   position: relative;
-  height: calc(var(--height) - 87px);
-
+  height: 100%;
   width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
   background: transparent;
-}
-
-.layout .messages::-webkit-scrollbar {
-  width: 0px;
-}
-
-.layout .messages > div:first-child > div {
-  margin-top: 6px;
-}
-
-.layout .messages > div:last-of-type > div {
-  margin-bottom: 6px;
 }
 
 .layout .input {

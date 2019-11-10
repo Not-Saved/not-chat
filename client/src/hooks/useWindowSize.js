@@ -1,4 +1,4 @@
-import { throttle } from "lodash"
+import { debounce } from "lodash"
 import { useState, useEffect } from "react"
 
 const isClient = typeof window === "object"
@@ -18,12 +18,12 @@ export default function useWindowSize() {
       return false
     }
 
-    const handleResize = throttle(function() {
+    const handleResize = debounce(function() {
       const size = getSize()
       setWindowSize(size)
       document.documentElement.style.setProperty("--height", `${size.height}px`)
       document.documentElement.style.setProperty("--width", `${size.width}px`)
-    }, 100)
+    }, 25)
 
     handleResize()
     window.addEventListener("resize", handleResize)

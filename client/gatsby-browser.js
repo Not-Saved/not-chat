@@ -1,5 +1,4 @@
 import React from "react"
-import useWindowSize from "./src/hooks/useWindowSize"
 
 import "./src/styles/index.css"
 
@@ -8,6 +7,5 @@ export const wrapRootElement = ({ element }) => {
 }
 
 const Wrapper = ({ children }) => {
-  useWindowSize()
   return children
 }

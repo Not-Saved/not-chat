@@ -1,68 +1,75 @@
-import React, {
-  useImperativeHandle,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from "react"
+import React, { useImperativeHandle, useEffect, useRef } from "react"
 import { FaAngleRight } from "react-icons/fa"
 
 import styles from "./input.module.css"
+import isMobile from "../util/isMobile"
 
-const Input = React.forwardRef(
-  ({ value, onChange, action, isBottom, toBottom, ...rest }, ref) => {
-    const [wasBottom, setWasBottom] = useState(false)
-    const inputRef = useRef()
+const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
+  const isBottomRef = useRef(true)
+  const inputRef = useRef()
 
-    useImperativeHandle(ref, () => inputRef.current)
+  useImperativeHandle(ref, () => inputRef.current)
 
-    const autoHeight = useCallback(() => {
-      inputRef.current.style.height = "auto"
-      inputRef.current.style.height = inputRef.current.scrollHeight + "px"
-      wasBottom && toBottom()
-    }, [wasBottom, toBottom])
+  function autoHeight() {
+    inputRef.current.style.height = "auto"
+    inputRef.current.style.height = inputRef.current.scrollHeight + "px"
 
-    useEffect(() => {
-      autoHeight()
-    }, [value, autoHeight])
-
-    function handleChange(e) {
-      setWasBottom(isBottom)
-      onChange && onChange(e.target.value)
+    if (isBottomRef.current) {
+      inputRef.current.scrollTop =
+        inputRef.current.scrollHeight - inputRef.current.clientHeight
     }
-
-    function handleKeyPress(e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault()
-        action && action(e.target.value)
-        inputRef.current.focus()
-      }
-    }
-
-    function handleClick(e) {
-      inputRef.current.focus()
-      action && action()
-    }
-
-    return (
-      <div className={styles.input}>
-        <textarea
-          ref={inputRef}
-          type="text"
-          rows={1}
-          value={value}
-          onChange={handleChange}
-          onKeyPress={handleKeyPress}
-          maxLength={1000}
-          placeholder="Message"
-          {...rest}
-        />
-        <button className={styles.send} onClick={handleClick}>
-          <FaAngleRight />
-        </button>
-      </div>
-    )
   }
-)
+
+  useEffect(() => {
+    autoHeight()
+  }, [value])
+
+  function handleChange(e) {
+    onChange && onChange(e.target.value)
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      if (isMobile()) {
+        onChange && onChange(e.target.value + "\n")
+      } else {
+        action && action(e.target.value)
+      }
+      inputRef.current.focus()
+    }
+  }
+
+  function handleClick(e) {
+    inputRef.current.focus()
+    action && action()
+  }
+
+  function handleScroll() {
+    isBottomRef.current =
+      inputRef.current.scrollTop ===
+      inputRef.current.scrollHeight - inputRef.current.clientHeight
+  }
+
+  return (
+    <div className={styles.input}>
+      <textarea
+        ref={inputRef}
+        onScroll={handleScroll}
+        type="text"
+        rows={1}
+        value={value}
+        onChange={handleChange}
+        onKeyPress={handleKeyPress}
+        maxLength={1000}
+        placeholder="Message"
+        {...rest}
+      />
+      <button className={styles.send} onClick={handleClick}>
+        <FaAngleRight />
+      </button>
+    </div>
+  )
+})
 
 export default Input
