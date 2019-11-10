@@ -9,8 +9,10 @@ import {
 
 import Message from "./message"
 import styles from "./messageListVirtualized.module.css"
+import isMobile from "../util/isMobile"
 
 const measurerCache = new CellMeasurerCache({
+  defaultHeight: 55,
   minHeight: 49,
   fixedWidth: true,
 })
@@ -42,7 +44,7 @@ const MessageList = React.forwardRef(
     }
 
     const handleResize = debounce(() => {
-      measurerCache.clearAll()
+      if (!isMobile()) measurerCache.clearAll()
       isBottom && toBottom()
     }, 50)
 

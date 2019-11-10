@@ -26,7 +26,7 @@ module.exports = {
         background_color: `teal`,
         theme_color: `teal`,
         display: `standalone`,
-        icon: `src/images/chat-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/chat-icon-teal.png`, // This path is relative to the root of the site.
       },
     },
     {
