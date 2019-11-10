@@ -4,9 +4,9 @@
   min-height: 45px;
   height: max-content;
 
-  border-top: 1px solid lightgrey;
-  box-shadow: 0px 0 8px rgba(200, 200, 200, 0.6);
-  background: white;
+  border-top: 1px solid var(--input-border-color);
+  box-shadow: 0px 0 8px var(--input-shadow-color);
+  background: var(--input-background-color);
 
   display: flex;
   z-index: 10;
@@ -22,7 +22,7 @@
   padding: 14px 0px 11px 10px;
   border: 0px;
 
-  color: rgb(59, 59, 59);
+  color: var(--font-color);
 }
 
 .input > textarea::-webkit-scrollbar {
@@ -45,9 +45,10 @@
 
 .input > .send svg {
   position: relative;
-  font-size: 35px;
+  font-size: 30px;
+
   bottom: 1px;
-  color: grey;
+  color: var(--icon-color);
 }
 
 .input > textarea:focus + .send {

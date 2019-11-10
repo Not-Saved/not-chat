@@ -3,10 +3,10 @@
   top: 0px;
   height: 45px;
   width: 100%;
-  background: teal;
+  background: var(--primary-color);
   color: white;
 
   display: flex;
   align-items: center;
-  box-shadow: 0px 1px 10px rgba(0, 128, 128, 0.4);
+  box-shadow: 0px 1px 10px var(--primary-shadow-color);
 }

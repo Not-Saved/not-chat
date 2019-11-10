@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import Input from "../components/input"
 import ChatLayout from "../components/chatLayout"
 import MessageList from "./messageListVirtualized"
+import PlaceholderList from "./placeholderList"
 
-const Chat = ({ initialMessages, header }) => {
+const Chat = ({ messages, setMessages, header }) => {
   const [value, onChange] = useState("")
-  const [messages, setMessages] = useState(initialMessages)
   const [isBottom, setIsBottom] = useState(true)
 
   const chatRef = useRef(null)
@@ -29,14 +29,24 @@ const Chat = ({ initialMessages, header }) => {
     />
   )
 
+  function renderContent() {
+    if (messages) {
+      return (
+        <MessageList
+          ref={chatRef}
+          messages={messages}
+          isBottom={isBottom}
+          setIsBottom={setIsBottom}
+        />
+      )
+    } else {
+      return <PlaceholderList />
+    }
+  }
+
   return (
     <ChatLayout header={header(chatRef)} input={input}>
-      <MessageList
-        ref={chatRef}
-        messages={messages}
-        isBottom={isBottom}
-        setIsBottom={setIsBottom}
-      />
+      {renderContent()}
     </ChatLayout>
   )
 }

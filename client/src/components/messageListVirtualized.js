@@ -12,7 +12,7 @@ import styles from "./messageListVirtualized.module.css"
 import isMobile from "../util/isMobile"
 
 const measurerCache = new CellMeasurerCache({
-  defaultHeight: 55,
+  defaultHeight: 52,
   minHeight: 49,
   fixedWidth: true,
 })
@@ -77,7 +77,7 @@ const MessageList = React.forwardRef(
           <div style={style} className={`${isFirst} ${isLast}`}>
             <Message
               date={date}
-              text={message.text}
+              text={message.text.trim()}
               from={message.from}
               mine={mine}
               arrow={arrow}

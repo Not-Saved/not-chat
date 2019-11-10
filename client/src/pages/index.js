@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import SEO from "../components/seo"
 import Hamburger from "../components/hamburger"
@@ -9,18 +9,23 @@ import largeString from "../util/largeString"
 
 const SecondPage = () => {
   const [checked, setChecked] = useState(false)
+  const [messages, setMessages] = useState(null)
 
   function loadMessages() {
     const messages = largeString
       .split("u")
-      .slice(0, 300)
+      .slice(0, 500)
       .map((e, index) => {
         const from = index % 2 === 0 ? "Me" : "You"
         return { text: e, from: from }
       })
     console.log(messages.length)
-    return messages
+    setMessages(messages)
   }
+
+  useEffect(() => {
+    loadMessages()
+  }, [])
 
   const header = () => {
     return (
@@ -36,7 +41,7 @@ const SecondPage = () => {
   return (
     <div className="page container">
       <SEO title="Chat" />
-      <Chat initialMessages={loadMessages()} header={header} />
+      <Chat messages={messages} setMessages={setMessages} header={header} />
       <Overlay visible={checked}></Overlay>
     </div>
   )

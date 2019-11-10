@@ -23,7 +23,7 @@
 .list::-webkit-scrollbar-thumb {
   visibility: hidden;
   border-radius: 1px;
-  background-color: #0000003b;
+  background-color: var(--scrollbar-color);
 }
 
 .list.scrolling::-webkit-scrollbar-thumb {

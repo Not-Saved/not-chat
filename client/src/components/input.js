@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, useEffect, useRef } from "react"
-import { FaAngleRight } from "react-icons/fa"
+import { FiChevronRight } from "react-icons/fi"
 
 import styles from "./input.module.css"
 import isMobile from "../util/isMobile"
@@ -66,7 +66,7 @@ const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
         {...rest}
       />
       <button className={styles.send} onClick={handleClick}>
-        <FaAngleRight />
+        <FiChevronRight />
       </button>
     </div>
   )
