@@ -32,8 +32,8 @@
 .input > .send {
   visibility: hidden;
   opacity: 0;
-  max-width: 40px;
-  min-width: 40px;
+  max-width: 38px;
+  min-width: 38px;
 
   flex-basis: auto;
   align-self: flex-end;
