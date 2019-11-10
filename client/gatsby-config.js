@@ -3,8 +3,8 @@ var proxy = require("http-proxy-middleware")
 module.exports = {
   siteMetadata: {
     title: `Not-Chat`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `Chat app created using Gatsby`,
+    author: `Not-Saved`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -20,20 +20,25 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Not-Chat`,
+        short_name: `Not-Chat`,
         start_url: `/`,
         background_color: `teal`,
         theme_color: `teal`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        display: `standalone`,
+        icon: `src/images/chat-icon.png`, // This path is relative to the root of the site.
       },
     },
     {
-      resolve: "gatsby-plugin-web-font-loader",
+      resolve: `gatsby-plugin-webfonts`,
       options: {
-        google: {
-          families: ["Lato"],
+        fonts: {
+          google: [
+            {
+              family: "Lato",
+              variants: ["300", "400", "500"],
+            },
+          ],
         },
       },
     },
