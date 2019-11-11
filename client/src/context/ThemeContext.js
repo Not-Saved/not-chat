@@ -7,8 +7,8 @@ export const ThemeContext = React.createContext({
 })
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState()
-  const [primaryColor, setPrimaryColor] = useState("light")
+  const [theme, setTheme] = useState("light")
+  const [primaryColor, setPrimaryColor] = useState()
   const themeRef = useRef(null)
 
   function changeTheme() {
