@@ -17,7 +17,7 @@ export const ThemeProvider = ({ children }) => {
   }
 
   function loadTheme() {
-    const theme = localStorage.getItem("theme")
+    const theme = localStorage && localStorage.getItem("theme")
     return theme || "light"
   }
 
