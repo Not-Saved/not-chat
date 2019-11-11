@@ -17,8 +17,11 @@ export const ThemeProvider = ({ children }) => {
   }
 
   function loadTheme() {
-    const theme = window && localStorage.getItem("theme")
-    return theme || "light"
+    if (typeof window !== `undefined`) {
+      const theme = window && localStorage.getItem("theme")
+      return theme || "light"
+    }
+    return "light"
   }
 
   useEffect(() => {
