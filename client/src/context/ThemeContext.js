@@ -17,7 +17,7 @@ export const ThemeProvider = ({ children }) => {
   }
 
   function loadTheme() {
-    const theme = sessionStorage.getItem("theme")
+    const theme = localStorage.getItem("theme")
     return theme || "light"
   }
 
@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }) => {
       const primaryColor = style.getPropertyValue("--primary-color")
       setPrimaryColor(primaryColor)
     }
-    sessionStorage.setItem("theme", theme)
+    localStorage.setItem("theme", theme)
   }, [theme])
 
   return (
