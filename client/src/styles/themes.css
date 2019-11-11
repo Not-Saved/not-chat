@@ -1,11 +1,13 @@
 .light.theme {
   --primary-color: teal;
+  --primary-border-color: teal;
   --primary-shadow-color: rgba(0, 128, 128, 0.4);
 
   --body-color: rgb(245, 245, 245);
   --font-color: rgba(0, 0, 0, 0.87);
   --lighter-font-color: grey;
   --icon-color: grey;
+  --header-icon-color: white;
 
   --message-font-color: rgba(41, 41, 41, 0.87);
   --message-border-color: rgb(221, 221, 221);
@@ -20,8 +22,35 @@
   --input-shadow-color: rgba(200, 200, 200, 0.6);
 
   --scrollbar-color: #0000003b;
+  --overlay-background-color: rgba(0, 0, 0, 0.75);
 }
 
-.light.theme * {
+.light.theme *,
+.dark.theme * {
   font-family: "Lato", sans-serif;
+}
+
+.dark.theme {
+  --primary-color: rgb(105, 82, 114);
+  --primary-border-color: rgb(64, 54, 75);
+
+  --body-color: rgb(45, 44, 48);
+  --font-color: white;
+  --lighter-font-color: rgb(194, 194, 194);
+  --icon-color: white;
+  --header-icon-color: white;
+
+  --message-font-color: white;
+  --message-border-color: rgb(36, 36, 36);
+  --message-background-color: rgb(69, 67, 70);
+
+  --message-alt-font-color: rgb(238, 230, 243);
+  --message-alt-border-color: rgb(45, 38, 49);
+  --message-alt-background-color: rgb(89, 76, 94);
+
+  --input-background-color: rgb(69, 67, 70);
+  --input-border-color: rgb(36, 36, 36);
+
+  --scrollbar-color: rgba(108, 106, 109, 0.74);
+  --overlay-background-color: rgba(0, 0, 0, 0.55);
 }

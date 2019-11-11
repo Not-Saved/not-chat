@@ -6,6 +6,7 @@ import Overlay from "../components/overlay"
 import Header from "../components/header"
 import Chat from "../components/chat"
 import largeString from "../util/largeString"
+import ThemeButton from "../components/themeButton"
 
 const SecondPage = () => {
   const [checked, setChecked] = useState(false)
@@ -34,6 +35,7 @@ const SecondPage = () => {
           checked={checked}
           onChange={() => setChecked(prev => !prev)}
         />
+        <ThemeButton />
       </Header>
     )
   }

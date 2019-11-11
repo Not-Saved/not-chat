@@ -4,6 +4,7 @@
   height: 45px;
   width: 100%;
   background: var(--primary-color);
+  border-bottom: 1px solid var(--primary-border-color);
   color: white;
 
   display: flex;

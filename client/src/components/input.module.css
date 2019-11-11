@@ -23,6 +23,11 @@
   border: 0px;
 
   color: var(--font-color);
+  background: inherit;
+}
+
+.input > textarea::placeholder {
+  color: var(--lighter-font-color);
 }
 
 .input > textarea::-webkit-scrollbar {

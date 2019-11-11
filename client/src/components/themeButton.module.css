@@ -1,0 +1,19 @@
+.button {
+  background: unset;
+  border: unset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 45px;
+  margin-left: auto;
+}
+
+.button > svg {
+  font-size: 35px;
+  text-align: center;
+  visibility: center;
+
+  color: var(--header-icon-color);
+}

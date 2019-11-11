@@ -17,3 +17,7 @@
 .spin {
   animation: spin 1200ms linear infinite;
 }
+
+.clickable {
+  cursor: pointer;
+}

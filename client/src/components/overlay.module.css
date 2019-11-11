@@ -17,7 +17,8 @@
 }
 
 .overlay > div {
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--overlay-background-color);
+  backdrop-filter: blur(1px);
   width: 100vw;
   height: 100vh;
   display: flex;
