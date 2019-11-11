@@ -51,6 +51,6 @@
   --input-background-color: rgb(69, 67, 70);
   --input-border-color: rgb(36, 36, 36);
 
-  --scrollbar-color: rgba(108, 106, 109, 0.74);
-  --overlay-background-color: rgba(0, 0, 0, 0.55);
+  --scrollbar-color: rgb(84, 82, 85);
+  --overlay-background-color: rgba(0, 0, 0, 0.7);
 }
