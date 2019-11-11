@@ -7,7 +7,7 @@ export const ThemeContext = React.createContext({
 })
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(loadTheme())
+  const [theme, setTheme] = useState("light")
   const [primaryColor, setPrimaryColor] = useState()
   const themeRef = useRef(null)
 
@@ -16,13 +16,13 @@ export const ThemeProvider = ({ children }) => {
     setTheme(changeTo)
   }
 
-  function loadTheme() {
-    if (typeof window !== `undefined`) {
-      const theme = window && localStorage.getItem("theme")
+  useEffect(() => {
+    function loadTheme() {
+      const theme = localStorage.getItem("theme")
       return theme || "light"
     }
-    return "light"
-  }
+    setTheme(loadTheme())
+  }, [])
 
   useEffect(() => {
     if (themeRef.current) {
