@@ -6,6 +6,7 @@ const Hamburger = ({ checked, onChange }) => {
   return (
     <div className={styles.container}>
       <input
+        aria-label="overlay-button"
         type="checkbox"
         className={styles.toggler}
         value={checked}

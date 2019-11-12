@@ -74,7 +74,7 @@ const MessageList = React.forwardRef(
           columnIndex={0}
           rowIndex={index}
         >
-          <div style={style} className={`${isFirst} ${isLast}`}>
+          <div style={style} className={`${isFirst} ${isLast}`} role="row">
             <Message
               date={date}
               text={message.text.trim()}
@@ -103,6 +103,7 @@ const MessageList = React.forwardRef(
             overscanRowCount={5}
             rowRenderer={getRow}
             deferredMeasurementCache={measurerCache}
+            aria-label="message-list"
           ></List>
         )}
       </AutoSizer>

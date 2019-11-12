@@ -54,6 +54,7 @@ const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
   return (
     <div className={styles.input}>
       <textarea
+        aria-label="message-textarea"
         ref={inputRef}
         onScroll={handleScroll}
         type="text"
