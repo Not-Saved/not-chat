@@ -8,7 +8,7 @@ import Chat from "../components/chat"
 import largeString from "../util/largeString"
 import ThemeButton from "../components/themeButton"
 
-const SecondPage = () => {
+const ChatPage = () => {
   const [checked, setChecked] = useState(false)
   const [messages, setMessages] = useState(null)
 
@@ -20,7 +20,6 @@ const SecondPage = () => {
         const from = index % 2 === 0 ? "Me" : "You"
         return { text: e, from: from }
       })
-    console.log(messages.length)
     setMessages(messages)
   }
 
@@ -48,4 +47,4 @@ const SecondPage = () => {
     </div>
   )
 }
-export default SecondPage
+export default ChatPage

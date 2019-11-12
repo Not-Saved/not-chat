@@ -1,12 +1,12 @@
 import React from "react"
 import { IoMdMore } from "react-icons/io"
 
-import useTheme from "../hooks/useTheme"
+import { useThemeContext } from "../hooks/contextHooks"
 
 import styles from "./themeButton.module.css"
 
 const ThemeButton = () => {
-  const { changeTheme } = useTheme()
+  const { changeTheme } = useThemeContext()
   return (
     <button
       aria-label="theme-button"

@@ -1,5 +1,11 @@
 import { debounce } from "lodash"
-import React, { useRef, useImperativeHandle, useEffect, useState } from "react"
+import React, {
+  useRef,
+  useImperativeHandle,
+  useEffect,
+  useState,
+  useCallback,
+} from "react"
 import {
   List,
   AutoSizer,
@@ -26,16 +32,19 @@ const MessageList = React.forwardRef(
       toBottom: toBottom,
     }))
 
+    const toBottom = useCallback(
+      function toBottom() {
+        if (listRef.current) listRef.current.scrollToRow(messages.length - 1)
+      },
+      [messages.length]
+    )
+
     useEffect(() => {
       measurerCache.clear(messages.length - 2, 0)
       isBottom && setTimeout(toBottom, 10)
     }, [messages, isBottom, toBottom])
 
-    function toBottom() {
-      if (listRef.current) listRef.current.scrollToRow(messages.length - 1)
-    }
-
-    const hideScrollbar = debounce(() => setIsScrolling(false), 800)
+    const hideScrollbar = debounce(() => setIsScrolling(false), 1000)
 
     const handleScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
       setIsScrolling(true)
@@ -43,10 +52,10 @@ const MessageList = React.forwardRef(
       hideScrollbar()
     }
 
-    const handleResize = debounce(() => {
+    const handleResize = () => {
       if (!isMobile()) measurerCache.clearAll()
       isBottom && toBottom()
-    }, 50)
+    }
 
     function getRow({ index, key, style, parent }) {
       const message = messages[index]

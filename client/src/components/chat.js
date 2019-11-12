@@ -12,7 +12,7 @@ const Chat = ({ messages, setMessages, header }) => {
   const inputRef = useRef(null)
 
   function handleMessage() {
-    if (value) {
+    if (value.trim()) {
       onChange("")
       setIsBottom(true)
       chatRef.current.toBottom()
