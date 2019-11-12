@@ -1,0 +1,17 @@
+.splash {
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash > svg {
+  position: relative;
+  bottom: 10px;
+  font-size: 80px;
+  color: white;
+  position: relative;
+  bottom: 10px;
+}

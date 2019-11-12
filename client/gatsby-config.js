@@ -23,11 +23,10 @@ module.exports = {
         name: `Not-Chat`,
         short_name: `Not-Chat`,
         start_url: `/`,
-        background_color: `teal`,
-        theme_color: `teal`,
+        background_color: `#695272`,
+        theme_color: `#695272`,
         display: `standalone`,
         icon: `src/images/chat-icon-teal.png`, // This path is relative to the root of the site.
-        theme_color_in_head: false,
       },
     },
     {

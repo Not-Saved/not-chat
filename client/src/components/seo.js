@@ -2,10 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import useTheme from "../hooks/useTheme"
 
 function SEO({ description, lang, meta, title }) {
-  const { primaryColor } = useTheme()
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -61,10 +59,6 @@ function SEO({ description, lang, meta, title }) {
         {
           name: `twitter:description`,
           content: metaDescription,
-        },
-        {
-          name: `theme-color`,
-          content: `${primaryColor}`,
         },
       ].concat(meta)}
     />

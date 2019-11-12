@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from "react"
+import SplashScreen from "../components/splashScreen"
 
 export const ThemeContext = React.createContext({
-  theme: "light",
+  theme: "",
   changeTheme: () => {},
   primaryColor: "",
 })
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState()
   const [primaryColor, setPrimaryColor] = useState()
   const themeRef = useRef(null)
 
@@ -18,7 +19,8 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     function loadTheme() {
-      return localStorage.getItem("theme") || "light"
+      const theme = localStorage.getItem("theme")
+      return theme || "light"
     }
     setTheme(loadTheme())
   }, [])
@@ -35,7 +37,7 @@ export const ThemeProvider = ({ children }) => {
   return (
     <ThemeContext.Provider value={{ theme, changeTheme, primaryColor }}>
       <div ref={themeRef} className={`${theme} theme`}>
-        {children}
+        {theme ? children : <SplashScreen />}
       </div>
     </ThemeContext.Provider>
   )

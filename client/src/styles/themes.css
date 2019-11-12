@@ -1,9 +1,9 @@
 .light.theme {
-  --primary-color: teal;
-  --primary-border-color: teal;
-  --primary-shadow-color: rgba(0, 128, 128, 0.4);
+  --primary-color: rgb(105, 82, 114);
+  --primary-border-color: rgb(105, 82, 114);
+  --primary-shadow-color: rgb(105, 82, 114, 0.4);
 
-  --body-color: rgb(245, 245, 245);
+  --body-color: rgb(243, 243, 243);
   --font-color: rgba(0, 0, 0, 0.87);
   --lighter-font-color: grey;
   --icon-color: grey;
@@ -13,9 +13,9 @@
   --message-border-color: rgb(221, 221, 221);
   --message-background-color: rgb(255, 255, 255);
 
-  --message-alt-font-color: rgb(0, 102, 102);
-  --message-alt-border-color: rgb(161, 192, 192);
-  --message-alt-background-color: rgb(215, 236, 236);
+  --message-alt-font-color: rgb(95, 77, 104);
+  --message-alt-border-color: rgb(185, 169, 190);
+  --message-alt-background-color: rgb(236, 229, 238);
 
   --input-background-color: white;
   --input-border-color: lightgrey;
@@ -53,4 +53,8 @@
 
   --scrollbar-color: rgb(84, 82, 85);
   --overlay-background-color: rgba(0, 0, 0, 0.7);
+}
+
+.theme {
+  --body-color: #695272;
 }
