@@ -8,7 +8,11 @@ import styles from "./themeButton.module.css"
 const ThemeButton = () => {
   const { changeTheme } = useTheme()
   return (
-    <button name="theme-button" className={styles.button} onClick={changeTheme}>
+    <button
+      aria-label="theme-button"
+      className={styles.button}
+      onClick={changeTheme}
+    >
       <IoMdMore className="clickable" />
     </button>
   )

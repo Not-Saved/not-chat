@@ -7,7 +7,7 @@ const Message = React.memo(({ date, text, from, mine, arrow }) => {
   const isMine = mine ? styles.right : ""
   const isArrow = arrow ? styles.arrow : ""
   return (
-    <div className={[styles.container, isMine].join(" ")}>
+    <div className={[styles.container, isMine].join(" ")} role="cell">
       <div className={[styles.message, isMine, isArrow].join(" ")}>
         <div className={styles.from}>
           <strong>{from}</strong>
