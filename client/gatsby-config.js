@@ -43,7 +43,7 @@ module.exports = {
         },
       },
     },
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
   ],
   developMiddleware: app => {
     app.use(proxy("/oauth/google", { target: "http://localhost:5000" }))

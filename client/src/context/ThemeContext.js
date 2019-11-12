@@ -18,8 +18,7 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     function loadTheme() {
-      const theme = localStorage.getItem("theme")
-      return theme || "light"
+      return localStorage.getItem("theme") || "light"
     }
     setTheme(loadTheme())
   }, [])
