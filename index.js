@@ -28,14 +28,10 @@ require("./routes")(app, io);
 
 //SERVE STATIC FILES
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/public"));
-  app.use(
-    gatsyExpress("client/config/gatsby-express.json", {
-      publicDir: "client/public/",
-      template: "client/public/404/index.html",
-      redirectSlashes: true
-    })
-  );
+  app.use(express.static(path.join(__dirname, "client/public/")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/client/public/404.html"));
+  });
 }
 
 //CONNECT TO MONGODB AND START SERVER
