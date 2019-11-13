@@ -1,11 +1,15 @@
 const express = require("express");
-const path = require("path");
+const gatsyExpress = require("gatsby-plugin-express");
 
 module.exports = app => {
   if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/public"));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "client", "public", "404.html"));
-    });
+    app.use(
+      gatsyExpress("client/config/gatsby-express.json", {
+        publicDir: "client/public/",
+        template: "client/public/404/index.html",
+        redirectSlashes: true
+      })
+    );
   }
 };
