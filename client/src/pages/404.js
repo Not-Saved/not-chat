@@ -1,13 +1,22 @@
 import React from "react"
 
 import SEO from "../components/seo"
+import ErrorLayout from "../components/errorLayout"
 
-const NotFoundPage = () => (
-  <>
-    <SEO title="404: Not found" />
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-  </>
-)
+const NotFoundPage = () => {
+  function throwError() {
+    throw new Error("Hey")
+  }
+
+  return (
+    <>
+      <SEO title="404: Not found" />
+      <ErrorLayout
+        headerText="NOT FOUND"
+        subText="The page you were looking for doesn't exist."
+      />
+    </>
+  )
+}
 
 export default NotFoundPage
