@@ -1,5 +1,6 @@
 const keys = require("./config/keys");
 const express = require("express");
+const gatsyExpress = require("gatsby-plugin-express");
 const mongoose = require("mongoose");
 
 //CREATE SERVER INSTANCE
@@ -26,7 +27,16 @@ require("./middlewares/server/compression")(app);
 require("./routes")(app, io);
 
 //SERVE STATIC FILES
-require("./middlewares/server/static")(app);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/public"));
+  app.use(
+    gatsyExpress("client/config/gatsby-express.json", {
+      publicDir: "client/public/",
+      template: "client/public/404/index.html",
+      redirectSlashes: true
+    })
+  );
+}
 
 //CONNECT TO MONGODB AND START SERVER
 mongoose.connect(keys.mongoURI, { useFindAndModify: false });
