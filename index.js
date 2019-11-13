@@ -1,6 +1,5 @@
 const keys = require("./config/keys");
 const express = require("express");
-const gatsyExpress = require("gatsby-plugin-express");
 const mongoose = require("mongoose");
 
 //CREATE SERVER INSTANCE
