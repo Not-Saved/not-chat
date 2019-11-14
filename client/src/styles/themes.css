@@ -54,3 +54,7 @@
   --scrollbar-color: rgb(84, 82, 85);
   --overlay-background-color: rgba(0, 0, 0, 0.7);
 }
+
+.theme {
+  --primary-color: rgb(105, 82, 114);
+}

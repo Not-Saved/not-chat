@@ -1,0 +1,30 @@
+.home-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page .login-link a {
+  font-size: 40px;
+  text-decoration: unset;
+  color: var(--font-color);
+}
+
+.home-page .login-link {
+  animation: slideInFromDown 1s ease 1;
+  margin-bottom: 20px;
+  border-bottom: 3px solid var(--font-color);
+  width: 110px;
+  text-align: center;
+}
+
+@keyframes slideInFromDown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

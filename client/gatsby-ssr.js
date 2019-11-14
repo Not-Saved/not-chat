@@ -3,6 +3,7 @@ import { ThemeProvider } from "./src/context/ThemeContext"
 import { UserProvider } from "./src/context/UserContext"
 import ErrorBoundary from "./src/components/general/errorBoundary"
 import ErrorLayout from "./src/components/layouts/errorLayout"
+import RedirectHandler from "./src/components/general/redirectHandler"
 
 import "./src/styles/index.css"
 import "./src/styles/themes.css"
@@ -16,7 +17,7 @@ export const wrapRootElement = ({ element }) => {
   )
 }
 
-export const wrapPageElement = ({ element }) => {
+export const wrapPageElement = ({ element, props }) => {
   return (
     <ErrorBoundary
       fallback={
@@ -26,7 +27,7 @@ export const wrapPageElement = ({ element }) => {
         />
       }
     >
-      {element}
+      <RedirectHandler {...props}>{element}</RedirectHandler>
     </ErrorBoundary>
   )
 }
