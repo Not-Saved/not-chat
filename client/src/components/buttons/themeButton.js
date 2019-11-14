@@ -1,7 +1,7 @@
 import React from "react"
 import { IoMdMore } from "react-icons/io"
 
-import { useThemeContext } from "../hooks/contextHooks"
+import { useThemeContext } from "../../hooks/contextHooks"
 
 import styles from "./themeButton.module.css"
 

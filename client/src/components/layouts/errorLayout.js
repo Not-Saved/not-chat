@@ -1,9 +1,9 @@
 import React from "react"
 
-import ErrorIcon from "../svg/errorIcon"
+import ErrorIcon from "../../svg/errorIcon"
+import BackButton from "../buttons/backButton"
 
 import styles from "./errorLayout.module.css"
-import BackButton from "./backButton"
 
 const ErrorLayout = ({ headerText, subText }) => (
   <div className={styles.error}>

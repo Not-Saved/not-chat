@@ -1,8 +1,8 @@
 import React, { useImperativeHandle, useEffect, useRef } from "react"
 import { FiChevronRight } from "react-icons/fi"
 
+import isMobile from "../../util/isMobile"
 import styles from "./input.module.css"
-import isMobile from "../util/isMobile"
 
 const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
   const isBottomRef = useRef(true)

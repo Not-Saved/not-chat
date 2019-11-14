@@ -1,8 +1,8 @@
 import React from "react"
 import { ThemeProvider } from "./src/context/ThemeContext"
 import { UserProvider } from "./src/context/UserContext"
-import ErrorBoundary from "./src/components/errorBoundary"
-import ErrorLayout from "./src/components/errorLayout"
+import ErrorBoundary from "./src/components/general/errorBoundary"
+import ErrorLayout from "./src/components/layouts/errorLayout"
 
 import "./src/styles/index.css"
 import "./src/styles/themes.css"

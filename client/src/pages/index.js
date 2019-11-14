@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 
-import SEO from "../components/seo"
-import Hamburger from "../components/hamburger"
-import Overlay from "../components/overlay"
-import Header from "../components/header"
-import Chat from "../components/chat"
 import largeString from "../util/largeString"
-import ThemeButton from "../components/themeButton"
+
+import SEO from "../components/general/seo"
+import Hamburger from "../components/buttons/hamburger"
+import Overlay from "../components/layouts/overlay"
+import Header from "../components/layouts/header"
+import Chat from "../components/chatScreen/chat"
+import ThemeButton from "../components/buttons/themeButton"
 
 const ChatPage = () => {
   const [checked, setChecked] = useState(false)

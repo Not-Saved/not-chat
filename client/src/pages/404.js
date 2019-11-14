@@ -1,13 +1,9 @@
 import React from "react"
 
-import SEO from "../components/seo"
-import ErrorLayout from "../components/errorLayout"
+import SEO from "../components/general/seo"
+import ErrorLayout from "../components/layouts/errorLayout"
 
 const NotFoundPage = () => {
-  function throwError() {
-    throw new Error("Hey")
-  }
-
   return (
     <>
       <SEO title="404: Not found" />

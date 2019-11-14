@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import SplashScreen from "../components/splashScreen"
+import SplashScreen from "../components/layouts/splashScreen"
 
 export const ThemeContext = React.createContext({
   theme: "",

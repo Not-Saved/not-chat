@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
-import Input from "../components/input"
-import ChatLayout from "../components/chatLayout"
+import Input from "./input"
+import ChatLayout from "./chatLayout"
 import MessageList from "./messageListVirtualized"
 import PlaceholderList from "./placeholderList"
 

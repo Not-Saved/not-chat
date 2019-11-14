@@ -15,7 +15,7 @@ import {
 
 import Message from "./message"
 import styles from "./messageListVirtualized.module.css"
-import isMobile from "../util/isMobile"
+import isMobile from "../../util/isMobile"
 
 const measurerCache = new CellMeasurerCache({
   defaultHeight: 52,
