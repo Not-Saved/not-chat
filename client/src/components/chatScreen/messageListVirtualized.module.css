@@ -1,9 +1,9 @@
 .list .first > div > div {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .list .last > div > div {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .list {

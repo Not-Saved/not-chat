@@ -2,7 +2,7 @@ import { debounce } from "lodash"
 import React, { useRef, useImperativeHandle } from "react"
 import { AutoSizer } from "react-virtualized"
 
-import Message from "./message"
+import Message from "../chatScreen/message"
 import styles from "./messageList.module.css"
 
 const MessageList = React.forwardRef(

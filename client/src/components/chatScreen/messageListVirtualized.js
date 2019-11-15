@@ -16,33 +16,42 @@ import {
 import Message from "./message"
 import styles from "./messageListVirtualized.module.css"
 import isMobile from "../../util/isMobile"
+import { useUserContext } from "../../hooks/contextHooks"
+import DateMessage from "./dateMessage"
 
 const measurerCache = new CellMeasurerCache({
-  defaultHeight: 52,
-  minHeight: 49,
+  defaultHeight: 60,
+  minHeight: 26,
   fixedWidth: true,
 })
 
 const MessageList = React.forwardRef(
   ({ messages, isBottom, setIsBottom }, ref) => {
+    const { user } = useUserContext()
+
+    const [preparedMessages, setPreparedMessages] = useState([])
     const [isScrolling, setIsScrolling] = useState(false)
     const listRef = useRef(null)
 
-    useImperativeHandle(ref, () => ({
-      toBottom: toBottom,
-    }))
+    useImperativeHandle(ref, () => ({ toBottom: toBottom }))
 
     const toBottom = useCallback(
       function toBottom() {
-        if (listRef.current) listRef.current.scrollToRow(messages.length - 1)
+        if (listRef.current)
+          listRef.current.scrollToRow(preparedMessages.length - 1)
       },
-      [messages.length]
+      [preparedMessages.length]
     )
 
     useEffect(() => {
-      measurerCache.clear(messages.length - 2, 0)
+      measurerCache.clear(preparedMessages.length - 2, 0)
       isBottom && setTimeout(toBottom, 10)
-    }, [messages, isBottom, toBottom])
+    }, [preparedMessages, isBottom, toBottom])
+
+    useEffect(() => {
+      const preparedMessages = prepareMessages(messages, user)
+      setPreparedMessages(preparedMessages)
+    }, [messages, user])
 
     const hideScrollbar = debounce(() => setIsScrolling(false), 1000)
 
@@ -57,43 +66,9 @@ const MessageList = React.forwardRef(
       isBottom && toBottom()
     }
 
-    function getRow({ index, key, style, parent }) {
-      const message = messages[index]
-      const mine = message.from === "Me"
-
-      const arrow =
-        messages.length === 1 ||
-        !messages[index + 1] ||
-        (messages[index - 1] &&
-          messages[index - 1].from !== message.from &&
-          messages[index + 1].from !== message.from)
-
-      const date = new Date().toLocaleTimeString("it", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-      const isFirst = index === 0 ? styles.first : ""
-      const isLast = index === messages.length - 1 ? styles.last : ""
-
-      return (
-        <CellMeasurer
-          key={key}
-          cache={measurerCache}
-          parent={parent}
-          columnIndex={0}
-          rowIndex={index}
-        >
-          <div style={style} className={`${isFirst} ${isLast}`} role="row">
-            <Message
-              date={date}
-              text={message.text.trim()}
-              from={message.from}
-              mine={mine}
-              arrow={arrow}
-            />
-          </div>
-        </CellMeasurer>
-      )
+    function getRow(props) {
+      const message = preparedMessages[props.index]
+      return renderRow({ ...props, message })
     }
 
     const scrollClassName = isScrolling ? styles.scrolling : ""
@@ -107,11 +82,12 @@ const MessageList = React.forwardRef(
             ref={listRef}
             onScroll={handleScroll}
             className={`${styles.list} ${scrollClassName}`}
-            rowCount={messages.length}
+            rowCount={preparedMessages.length}
             rowHeight={measurerCache.rowHeight}
             overscanRowCount={5}
             rowRenderer={getRow}
             deferredMeasurementCache={measurerCache}
+            onRowsRendered={e => console.log(e)}
             aria-label="message-list"
           ></List>
         )}
@@ -121,3 +97,100 @@ const MessageList = React.forwardRef(
 )
 
 export default MessageList
+
+function renderRow({ index, key, style, parent, message }) {
+  return (
+    <CellMeasurer
+      key={key}
+      cache={measurerCache}
+      parent={parent}
+      columnIndex={0}
+      rowIndex={index}
+    >
+      {renderMessage(style, message)}
+    </CellMeasurer>
+  )
+}
+
+function renderMessage(style, message) {
+  switch (message.type) {
+    case "USER_MESSAGE":
+      return (
+        <div
+          style={style}
+          className={`${message.isFirst} ${message.isLast}`}
+          role="row"
+        >
+          <Message
+            date={message.createdAt}
+            text={message.content}
+            from={message.user.userName}
+            mine={message.mine}
+            arrow={message.arrow}
+          />
+        </div>
+      )
+    case "DATE_MESSAGE":
+      return (
+        <div style={style} role="row">
+          <DateMessage text={message.content} />
+        </div>
+      )
+    default:
+      break
+  }
+}
+
+function prepareMessages(messages, currentUser) {
+  const preparedMessages = []
+  messages.forEach((message, index) => {
+    let user = message.user || { _id: null, userName: "Unknown" }
+    let preparedMessage = { ...message }
+
+    preparedMessage.type = "USER_MESSAGE"
+    preparedMessage.user = user
+    preparedMessage.createdAt = formatDate(message.createdAt)
+    preparedMessage.mine = user._id === currentUser._id
+    preparedMessage.arrow = checkIfArrow(messages, index, user)
+    preparedMessage.isFirst = index === 0 ? styles.first : ""
+    preparedMessage.isLast = index === messages.length - 1 ? styles.last : ""
+
+    if (
+      messages[index - 1] &&
+      new Date(messages[index - 1].createdAt).getDay() !==
+        new Date(message.createdAt).getDay()
+    ) {
+      const date = new Date(message.createdAt)
+      const dateMessage = {
+        type: "DATE_MESSAGE",
+        content: date.toLocaleDateString("en", {
+          month: "long",
+          day: "numeric",
+        }),
+      }
+      preparedMessages.push(dateMessage)
+    }
+
+    preparedMessages.push(preparedMessage)
+  })
+  return preparedMessages
+}
+
+function formatDate(date) {
+  return new Date(date).toLocaleTimeString("it", {
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+}
+
+function checkIfArrow(messages, index, user) {
+  if (index === 0 || messages.length === index + 1) {
+    return true
+  } else if (!messages[index + 1].user) {
+    return true
+  } else if (messages[index + 1].user._id === user._id) {
+    return false
+  } else {
+    return true
+  }
+}

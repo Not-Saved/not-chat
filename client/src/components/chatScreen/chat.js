@@ -4,7 +4,7 @@ import ChatLayout from "./chatLayout"
 import MessageList from "./messageListVirtualized"
 import PlaceholderList from "./placeholderList"
 
-const Chat = ({ messages, setMessages, header }) => {
+const Chat = ({ messages, sendMessage, connected, header }) => {
   const [value, onChange] = useState("")
   const [isBottom, setIsBottom] = useState(true)
 
@@ -16,7 +16,7 @@ const Chat = ({ messages, setMessages, header }) => {
       onChange("")
       setIsBottom(true)
       chatRef.current.toBottom()
-      setMessages(prev => [...prev, { text: value, from: "Me" }])
+      sendMessage(value.trim())
     }
   }
 
@@ -30,7 +30,7 @@ const Chat = ({ messages, setMessages, header }) => {
   )
 
   function renderContent() {
-    if (messages) {
+    if (messages && connected) {
       return (
         <MessageList
           ref={chatRef}
