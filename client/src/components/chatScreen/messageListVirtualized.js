@@ -21,7 +21,7 @@ import DateMessage from "./dateMessage"
 
 const measurerCache = new CellMeasurerCache({
   defaultHeight: 60,
-  minHeight: 26,
+  minHeight: 32,
   fixedWidth: true,
 })
 
