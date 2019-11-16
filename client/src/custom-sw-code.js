@@ -11,7 +11,7 @@ self.addEventListener("push", event => {
       })
       .then(isClientFocused)
       .then(clientIsFocused => {
-        if (clientIsFocused || data.title !== "Not-Chat") {
+        if (clientIsFocused && data.title !== "Not-Chat") {
           return
         }
         return self.registration.showNotification(data.title, {
