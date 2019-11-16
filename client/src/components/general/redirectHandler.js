@@ -27,6 +27,7 @@ const RedirectHandler = ({ children, navigate, location }) => {
   switch (location.pathname) {
     case "/":
       return renderHome()
+    case "/chat":
     case "/chat/":
       return renderChat()
     default:

@@ -45,7 +45,14 @@ const MessageList = React.forwardRef(
 
     useEffect(() => {
       measurerCache.clear(preparedMessages.length - 2, 0)
-      isBottom && setTimeout(toBottom, 10)
+      if (
+        (preparedMessages.length &&
+          preparedMessages[preparedMessages.length - 1].user._id ===
+            user._id) ||
+        isBottom
+      ) {
+        setTimeout(toBottom, 10)
+      }
     }, [preparedMessages, isBottom, toBottom])
 
     useEffect(() => {
@@ -62,8 +69,8 @@ const MessageList = React.forwardRef(
     }
 
     const handleResize = () => {
-      if (!isMobile()) measurerCache.clearAll()
       isBottom && toBottom()
+      if (!isMobile()) measurerCache.clearAll()
     }
 
     function getRow(props) {
@@ -87,7 +94,6 @@ const MessageList = React.forwardRef(
             overscanRowCount={5}
             rowRenderer={getRow}
             deferredMeasurementCache={measurerCache}
-            onRowsRendered={e => console.log(e)}
             aria-label="message-list"
           ></List>
         )}
@@ -156,9 +162,10 @@ function prepareMessages(messages, currentUser) {
     preparedMessage.isLast = index === messages.length - 1 ? styles.last : ""
 
     if (
-      messages[index - 1] &&
-      new Date(messages[index - 1].createdAt).getDay() !==
-        new Date(message.createdAt).getDay()
+      index === 0 ||
+      (messages[index - 1] &&
+        new Date(messages[index - 1].createdAt).getDay() !==
+          new Date(message.createdAt).getDay())
     ) {
       const date = new Date(message.createdAt)
       const dateMessage = {
@@ -184,7 +191,7 @@ function formatDate(date) {
 }
 
 function checkIfArrow(messages, index, user) {
-  if (index === 0 || messages.length === index + 1) {
+  if (messages.length === index + 1) {
     return true
   } else if (!messages[index + 1].user) {
     return true

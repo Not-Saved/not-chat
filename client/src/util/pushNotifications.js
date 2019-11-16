@@ -25,7 +25,6 @@ export async function getPushSubscription() {
   try {
     const sw = await navigator.serviceWorker.getRegistration("/")
     const subscription = await sw.pushManager.getSubscription()
-    console.log(subscription)
     return subscription
   } catch (error) {
     console.error(error)

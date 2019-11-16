@@ -7,16 +7,19 @@ import {
   getPushSubscription,
   subscribeToPush,
 } from "../../util/pushNotifications"
+import { useUserContext } from "../../hooks/contextHooks"
 
 import styles from "./notificationButton.module.css"
 
 const NotificationButton = () => {
   const [permission, setPermission] = useState(null)
+  const { user } = useUserContext()
 
   useEffect(() => {
     if (permission === "granted") {
       getPushSubscription().then(sub => {
-        if (!sub) subscribeToPush()
+        if (!sub || !user.pushSubscriptions.includes(JSON.stringify(sub)))
+          subscribeToPush()
       })
     }
   }, [permission])

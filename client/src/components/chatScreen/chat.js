@@ -14,8 +14,6 @@ const Chat = ({ messages, sendMessage, connected, header }) => {
   function handleMessage() {
     if (value.trim()) {
       onChange("")
-      setIsBottom(true)
-      chatRef.current.toBottom()
       sendMessage(value.trim())
     }
   }
