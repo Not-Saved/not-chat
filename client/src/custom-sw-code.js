@@ -1,3 +1,11 @@
+let silent = false
+
+function setSilentToFalse() {
+  setTimeout(() => {
+    silent = false
+  }, 10000)
+}
+
 self.addEventListener("push", event => {
   const data = event.data.json()
   if (data) {
@@ -14,9 +22,15 @@ self.addEventListener("push", event => {
         if (clientIsFocused && data.title !== "Not-Chat") {
           return
         }
+        let silentTemp = silent
+        if (!silent) {
+          silent = true
+          setSilentToFalse()
+        }
         return self.registration.showNotification(data.title, {
           body: `${data.userName}: ${data.body.substr(0, 80)}`,
           icon: data.icon,
+          silent: silentTemp,
         })
       })
     event.waitUntil(promiseChain)

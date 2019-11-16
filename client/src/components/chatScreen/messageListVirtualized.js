@@ -28,7 +28,7 @@ const measurerCache = new CellMeasurerCache({
 const MessageList = React.forwardRef(
   ({ messages, isBottom, setIsBottom }, ref) => {
     const { user } = useUserContext()
-
+    const isBottomVar = isBottom
     const [preparedMessages, setPreparedMessages] = useState([])
     const [isScrolling, setIsScrolling] = useState(false)
     const listRef = useRef(null)
@@ -44,19 +44,22 @@ const MessageList = React.forwardRef(
     )
 
     useEffect(() => {
+      const length = preparedMessages.length
       measurerCache.clear(preparedMessages.length - 2, 0)
-      if (
-        (preparedMessages.length &&
-          preparedMessages[preparedMessages.length - 1].user._id ===
-            user._id) ||
-        isBottom
-      ) {
-        setTimeout(toBottom, 10)
+      if ((length && preparedMessages[length - 1].mine) || isBottomVar) {
+        toBottom()
       }
-    }, [preparedMessages, isBottom, toBottom])
+    }, [preparedMessages, toBottom])
 
     useEffect(() => {
       const preparedMessages = prepareMessages(messages, user)
+      if (
+        messages.length &&
+        messages[messages.length - 1].user &&
+        messages[messages.length - 1].user._id === user._id
+      ) {
+        toBottom()
+      }
       setPreparedMessages(preparedMessages)
     }, [messages, user])
 
@@ -138,7 +141,7 @@ function renderMessage(style, message) {
       )
     case "DATE_MESSAGE":
       return (
-        <div style={style} role="row">
+        <div style={style} className={`${message.isFirst}`} role="row">
           <DateMessage text={message.content} />
         </div>
       )
@@ -158,7 +161,6 @@ function prepareMessages(messages, currentUser) {
     preparedMessage.createdAt = formatDate(message.createdAt)
     preparedMessage.mine = user._id === currentUser._id
     preparedMessage.arrow = checkIfArrow(messages, index, user)
-    preparedMessage.isFirst = index === 0 ? styles.first : ""
     preparedMessage.isLast = index === messages.length - 1 ? styles.last : ""
 
     if (
@@ -176,6 +178,8 @@ function prepareMessages(messages, currentUser) {
         }),
       }
       preparedMessages.push(dateMessage)
+    } else {
+      preparedMessage.isFirst = index === 0 ? styles.first : ""
     }
 
     preparedMessages.push(preparedMessage)

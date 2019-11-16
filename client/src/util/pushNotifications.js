@@ -4,6 +4,7 @@ import urlBase64ToUint8Array from "./urlBase64ToUint8Array"
 export async function subscribeToPush() {
   try {
     const publicKey =
+      process.env.GATSBY_VAPID_PUBLIC_KEY ||
       "BHDqfdxEpTorFJ_IV7JA7CIZ9ucySQohTYWKRZOd930mOnpWIDpFCwg4mCrdlEE7SjKpxxhyzi6fBBk_Fs1rMVY"
     const sw = await navigator.serviceWorker.getRegistration("/")
     const subscription = await sw.pushManager.subscribe({

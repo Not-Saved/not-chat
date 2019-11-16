@@ -17,9 +17,9 @@ const ChatController = () => {
 
   useEffect(() => {
     async function loadMessages() {
-      const messages = await apiRequest({
-        url: "/rooms/5db0a60c89a5582114d5c2e3/messages",
-      })
+      const roomId =
+        process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
+      const messages = await apiRequest({ url: `/rooms/${roomId}/messages` })
 
       connect(messages.data)
     }

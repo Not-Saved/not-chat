@@ -14,6 +14,14 @@ export default function useCurrentUser() {
         method: "get",
         url: "/current_user",
       })
+      if (!response.data.rooms.length) {
+        const roomId =
+          process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
+        await apiRequest({
+          method: "POST",
+          url: `/rooms/${roomId}`,
+        })
+      }
       setUser(response.data)
     } catch (e) {
       setError(e)

@@ -16,7 +16,8 @@ export default function() {
   }, [])
 
   function sendMessage(msg) {
-    socket.emit("message", "5db0a60c89a5582114d5c2e3", msg)
+    const roomId = process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
+    socket.emit("message", roomId, msg)
   }
 
   useEffect(() => {
@@ -25,7 +26,9 @@ export default function() {
         dispatch({ type: "MESSAGE", payload: msg })
       })
       socket.on("online_users", ({ room, users }) => {
-        if (room === "5db0a60c89a5582114d5c2e3") setOnlineUsers(users)
+        const roomId =
+          process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
+        if (room === roomId) setOnlineUsers(users)
       })
       return () => socket.disconnect()
     }

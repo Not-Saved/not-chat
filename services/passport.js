@@ -32,8 +32,7 @@ passport.use(
 
       const newUser = await new User({
         googleId: profile.id,
-        userName: profile.name.givenName,
-        rooms: ["5db0a60c89a5582114d5c2e3"]
+        userName: profile.name.givenName
       }).save();
       done(null, newUser);
     }

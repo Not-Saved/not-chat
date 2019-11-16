@@ -22,7 +22,7 @@ const NotificationButton = () => {
           subscribeToPush()
       })
     }
-  }, [permission])
+  }, [permission, user.pushSubscriptions])
 
   useEffect(() => {
     const permission = getNotificationPermission()
