@@ -80,7 +80,9 @@ async function onMessage({ io, user }, { room, msg }) {
 
       dbRoom.users.forEach(user => {
         user.pushSubscriptions.forEach(sub => {
-          webpush.sendNotification(JSON.parse(sub), payload);
+          webpush
+            .sendNotification(JSON.parse(sub), payload)
+            .catch(e => console.error(e));
         });
       });
 
