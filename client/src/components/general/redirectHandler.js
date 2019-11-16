@@ -7,7 +7,7 @@ const RedirectHandler = ({ children, navigate, location }) => {
 
   const renderHome = () => {
     if (user) {
-      navigate("/chat")
+      navigate("/chat/")
       return <SplashScreen />
     } else {
       return children
@@ -27,7 +27,7 @@ const RedirectHandler = ({ children, navigate, location }) => {
   switch (location.pathname) {
     case "/":
       return renderHome()
-    case "/chat":
+    case "/chat/":
       return renderChat()
     default:
       return children

@@ -10,9 +10,13 @@
 }
 
 .button > svg {
-  font-size: 32px;
+  font-size: 26px;
   text-align: center;
   visibility: center;
 
   color: var(--header-icon-color);
+}
+
+.button:disabled > svg {
+  opacity: 0.4;
 }

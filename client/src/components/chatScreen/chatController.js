@@ -4,6 +4,7 @@ import Hamburger from "../buttons/hamburger"
 import Overlay from "../layouts/overlay"
 import Header from "../layouts/header"
 import ThemeButton from "../buttons/themeButton"
+import NotificationButton from "../buttons/notificationButton"
 import Chat from "./chat"
 
 import { apiRequest } from "../../api"
@@ -19,6 +20,7 @@ const ChatController = () => {
       const messages = await apiRequest({
         url: "/rooms/5db0a60c89a5582114d5c2e3/messages",
       })
+
       connect(messages.data)
     }
     loadMessages()
@@ -31,6 +33,7 @@ const ChatController = () => {
           checked={checked}
           onChange={() => setChecked(prev => !prev)}
         />
+        <NotificationButton />
         <ThemeButton />
       </Header>
     )

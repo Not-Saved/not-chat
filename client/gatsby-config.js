@@ -42,7 +42,12 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        appendScript: `src/custom-sw-code.js`,
+      },
+    },
   ],
   developMiddleware: app => {
     app.use(proxy("/oauth/google", { target: "http://localhost:5000" }))
