@@ -38,7 +38,6 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
   }, [preparedMessages])
 
   useEffect(() => {
-    if (!messages.length) setLoading("")
     const preparedMessages = prepareMessages(messages, user)
     setPreparedMessages(preparedMessages)
 
@@ -80,7 +79,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
       setIsBottom(true)
     }
     if (loading) {
-      setTimeout(() => setLoading(""), 100)
+      setTimeout(() => setLoading(""), 200)
     }
   }, 50)
 

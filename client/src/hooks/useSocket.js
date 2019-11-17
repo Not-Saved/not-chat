@@ -2,7 +2,7 @@ import { useState, useEffect, useReducer, useCallback } from "react"
 import io from "socket.io-client"
 
 export default function() {
-  const [messages, dispatch] = useReducer(messageReducer, [])
+  const [messages, dispatch] = useReducer(messageReducer, null)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [socket, setSocket] = useState()
 

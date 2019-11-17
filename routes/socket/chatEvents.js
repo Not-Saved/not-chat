@@ -78,13 +78,15 @@ async function onMessage({ io, user }, { room, msg }) {
         icon: `/static/chat-icon-teal.png`
       });
 
-      dbRoom.users.forEach(user => {
-        user.pushSubscriptions.forEach(sub => {
-          webpush
-            .sendNotification(JSON.parse(sub), payload)
-            .catch(e => console.error(e));
+      dbRoom.users
+        .filter(u => String(u._id) !== String(user._id))
+        .forEach(user => {
+          user.pushSubscriptions.forEach(sub => {
+            webpush
+              .sendNotification(JSON.parse(sub), payload)
+              .catch(e => console.error(e));
+          });
         });
-      });
 
       const message = await new Message({
         user: user,
