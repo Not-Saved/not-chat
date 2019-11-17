@@ -24,7 +24,11 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOneAndUpdate(
         { googleId: profile.id },
-        { lastSignedIn: Date.now() }
+        {
+          lastSignedIn: Date.now(),
+          picture: profile._json.picture
+        },
+        { new: true }
       );
       if (existingUser) {
         return done(null, existingUser);
@@ -32,7 +36,8 @@ passport.use(
 
       const newUser = await new User({
         googleId: profile.id,
-        userName: profile.name.givenName
+        userName: profile.name.givenName,
+        picture: profile._json.picture
       }).save();
       done(null, newUser);
     }

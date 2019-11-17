@@ -1,0 +1,9 @@
+.overlay {
+  width: calc(100% - 10px);
+  height: 100%;
+  box-sizing: border-box;
+  margin: auto;
+
+  margin-top: 48px;
+  border-top: 1px solid var(--header-icon-color);
+}

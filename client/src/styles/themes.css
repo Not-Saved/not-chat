@@ -22,7 +22,7 @@
   --input-shadow-color: rgba(200, 200, 200, 0.6);
 
   --scrollbar-color: #0000003b;
-  --overlay-background-color: rgba(0, 0, 0, 0.75);
+  --overlay-background-color: rgba(0, 0, 0, 0.9);
 }
 
 .light.theme *,
@@ -52,7 +52,7 @@
   --input-border-color: rgb(36, 36, 36);
 
   --scrollbar-color: rgb(84, 82, 85);
-  --overlay-background-color: rgba(0, 0, 0, 0.7);
+  --overlay-background-color: rgba(0, 0, 0, 0.85);
 }
 
 .theme {
