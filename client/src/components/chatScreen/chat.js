@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react"
 import Input from "./input"
 import ChatLayout from "./chatLayout"
 import MessageList from "./messageListVirtualized"
-import PlaceholderList from "./placeholderList"
+import LoadingChat from "./loadingChat"
 
 const Chat = ({ messages, sendMessage, connected, header }) => {
   const [value, onChange] = useState("")
@@ -14,6 +14,7 @@ const Chat = ({ messages, sendMessage, connected, header }) => {
   function handleMessage() {
     if (value.trim()) {
       onChange("")
+      setIsBottom(true)
       sendMessage(value.trim())
     }
   }
@@ -24,6 +25,7 @@ const Chat = ({ messages, sendMessage, connected, header }) => {
       value={value}
       onChange={onChange}
       action={handleMessage}
+      disabled={!messages || !connected}
     />
   )
 
@@ -38,7 +40,7 @@ const Chat = ({ messages, sendMessage, connected, header }) => {
         />
       )
     } else {
-      return <PlaceholderList />
+      return <LoadingChat loading={!messages || !connected} />
     }
   }
 

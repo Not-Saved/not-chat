@@ -5,17 +5,17 @@ import SplashScreen from "../layouts/splashScreen"
 const RedirectHandler = ({ children, navigate, location }) => {
   const { user, checked } = useUserContext()
 
-  const renderHome = () => {
-    if (user) {
-      navigate("/chat/")
+  const renderChat = () => {
+    if (!user) {
+      navigate("/login")
       return <SplashScreen />
     } else {
       return children
     }
   }
 
-  const renderChat = () => {
-    if (!user) {
+  const renderLogin = () => {
+    if (user) {
       navigate("/")
       return <SplashScreen />
     } else {
@@ -26,10 +26,10 @@ const RedirectHandler = ({ children, navigate, location }) => {
   if (!checked) return <SplashScreen />
   switch (location.pathname) {
     case "/":
-      return renderHome()
-    case "/chat":
-    case "/chat/":
       return renderChat()
+    case "/login":
+    case "/login/":
+      return renderLogin()
     default:
       return children
   }

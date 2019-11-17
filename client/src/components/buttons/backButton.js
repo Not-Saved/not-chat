@@ -4,10 +4,13 @@ import { AiOutlineRollback } from "react-icons/ai"
 import styles from "./backButton.module.css"
 import { Link } from "gatsby"
 
-const BackButton = () => {
+const BackButton = ({ reload }) => {
   return (
     <Link to="/" className={styles.back}>
-      <AiOutlineRollback className="clickable" />
+      <AiOutlineRollback
+        className="clickable"
+        onClick={reload ? window.location.reload : null}
+      />
     </Link>
   )
 }

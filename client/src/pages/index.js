@@ -1,17 +1,14 @@
 import React from "react"
+
 import SEO from "../components/general/seo"
+import ChatController from "../components/chatScreen/chatController"
 
-import "../styles/home.css"
-
-const HomePage = () => {
+const ChatPage = () => {
   return (
-    <div className="home-page">
-      <SEO title="Login" />
-      <div className="login-link">
-        <a href="/oauth/google">Login</a>
-      </div>
+    <div className="page container">
+      <SEO title="Chat" />
+      <ChatController />
     </div>
   )
 }
-
-export default HomePage
+export default ChatPage

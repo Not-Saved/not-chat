@@ -1,0 +1,27 @@
+.loading {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loading.hidden {
+  display: none;
+}
+
+.loading > svg {
+  font-size: 45px;
+  color: var(--lighter-font-color);
+  margin-bottom: 5px;
+}
+
+.loading > span {
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--lighter-font-color);
+}

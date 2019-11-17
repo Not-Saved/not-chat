@@ -1,7 +1,3 @@
-.list .first > div > div {
-  margin-top: 4px;
-}
-
 .list .last > div > div {
   margin-bottom: 4px;
 }
@@ -9,6 +5,10 @@
 .list {
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.list.loading {
+  opacity: 0;
 }
 
 .list::-webkit-scrollbar-track {

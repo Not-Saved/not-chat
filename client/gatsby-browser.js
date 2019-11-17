@@ -22,6 +22,7 @@ export const wrapPageElement = ({ element, props }) => {
     <ErrorBoundary
       fallback={
         <ErrorLayout
+          reload
           headerText="ERROR :("
           subText="Something went wrong somewhere..."
         />

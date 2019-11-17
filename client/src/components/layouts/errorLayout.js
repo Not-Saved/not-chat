@@ -5,9 +5,9 @@ import BackButton from "../buttons/backButton"
 
 import styles from "./errorLayout.module.css"
 
-const ErrorLayout = ({ headerText, subText }) => (
+const ErrorLayout = ({ headerText, subText, reload }) => (
   <div className={styles.error}>
-    <BackButton />
+    <BackButton reload={reload} />
     <div className={styles.icon}>
       <ErrorIcon />
     </div>

@@ -22,6 +22,7 @@ export const wrapPageElement = ({ element, props }) => {
     <ErrorBoundary
       fallback={
         <ErrorLayout
+          reload
           headerText="ERROR :("
           subText="Something went wrong somewhere..."
         />
@@ -30,4 +31,14 @@ export const wrapPageElement = ({ element, props }) => {
       <RedirectHandler {...props}>{element}</RedirectHandler>
     </ErrorBoundary>
   )
+}
+
+export const onServiceWorkerUpdateReady = () => {
+  const answer = window.confirm(
+    `This application has been updated. ` +
+      `Reload to display the latest version?`
+  )
+  if (answer === true) {
+    window.location.reload()
+  }
 }

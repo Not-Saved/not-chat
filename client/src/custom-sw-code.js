@@ -1,6 +1,7 @@
 let silent = false
 
-function setSilentToFalse() {
+function startSilentTimer() {
+  silent = true
   setTimeout(() => {
     silent = false
   }, 10000)
@@ -24,12 +25,13 @@ self.addEventListener("push", event => {
         }
         let silentTemp = silent
         if (!silent) {
-          silent = true
-          setSilentToFalse()
+          startSilentTimer()
         }
         return self.registration.showNotification(data.title, {
           body: `${data.userName}: ${data.body.substr(0, 80)}`,
           icon: data.icon,
+          renotify: true,
+          tag: "redroom",
           silent: silentTemp,
         })
       })
