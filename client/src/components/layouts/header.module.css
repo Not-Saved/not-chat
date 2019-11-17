@@ -16,7 +16,7 @@
   z-index: 999;
 }
 
-.header > button:nth-last-child(-2n + 2) {
+.header > button:nth-last-child(2) {
   margin-left: auto;
   margin-right: 0;
 }

@@ -34,13 +34,14 @@ const NotificationButton = () => {
     setPermission(newPermission)
   }
 
-  if (permission === "granted") return null
+  const visibility = permission === "granted" ? "hidden" : "visible"
   return (
     <button
       aria-label="notification-button"
       className={styles.button}
       onClick={requestPermission}
       disabled={permission === "denied"}
+      style={{ visibility }}
     >
       <IoMdNotificationsOff className="clickable" />
     </button>
