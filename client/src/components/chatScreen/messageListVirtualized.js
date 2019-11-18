@@ -133,6 +133,7 @@ function renderMessage(message) {
           date={message.createdAt}
           text={message.content}
           from={message.user.userName}
+          picture={`${message.user.picture}=s50`}
           mine={message.mine}
           arrow={message.arrow}
         />

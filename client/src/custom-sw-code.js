@@ -10,31 +10,22 @@ function startSilentTimer() {
 self.addEventListener("push", event => {
   const data = event.data.json()
   if (data) {
-    const promiseChain = self.registration
-      .getNotifications()
-      .then(findNotifications)
-      .then(currentNotification => {
-        if (currentNotification) {
-          currentNotification.close()
-        }
+    const promiseChain = isClientFocused().then(clientIsFocused => {
+      if (clientIsFocused && data.title !== "Not-Chat") {
+        return
+      }
+      let silentTemp = silent
+      if (!silent) {
+        startSilentTimer()
+      }
+      return self.registration.showNotification(data.title, {
+        body: `${data.userName}: ${data.body.substr(0, 80)}`,
+        icon: data.icon,
+        renotify: true,
+        tag: "redroom",
+        silent: silentTemp,
       })
-      .then(isClientFocused)
-      .then(clientIsFocused => {
-        if (clientIsFocused && data.title !== "Not-Chat") {
-          return
-        }
-        let silentTemp = silent
-        if (!silent) {
-          startSilentTimer()
-        }
-        return self.registration.showNotification(data.title, {
-          body: `${data.userName}: ${data.body.substr(0, 80)}`,
-          icon: data.icon,
-          renotify: true,
-          tag: "redroom",
-          silent: silentTemp,
-        })
-      })
+    })
     event.waitUntil(promiseChain)
   }
 })

@@ -41,6 +41,11 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname + "/client/public/404.html"));
   });
 }
+app.use("/static", express.static(path.join(__dirname, "static/")));
+app.use(express.static(path.join(__dirname, "client/public/")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/public/404.html"));
+});
 
 //CONNECT TO MONGODB AND START SERVER
 mongoose.connect(keys.mongoURI, { useFindAndModify: false });

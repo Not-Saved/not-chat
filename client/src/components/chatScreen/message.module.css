@@ -4,25 +4,57 @@
   justify-content: flex-start;
 }
 
-.container.right {
+.container .grid {
+  width: 80%;
+  display: flex;
+  padding-left: 7px;
+}
+
+.container.right,
+.container .grid.right {
   justify-content: flex-end;
+}
+
+.container .picture {
+  height: 100%;
+  width: 41px;
+  min-width: 41px;
+  visibility: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.container.arrow:not(.right) .picture {
+  visibility: visible;
+}
+.container.right .picture {
+  display: none;
+}
+
+.container .picture > div {
+  height: max-content;
+  width: 100%;
+  padding-bottom: 1px;
+}
+.container .picture > div > img {
+  border-radius: 50%;
+  width: 100%;
+  box-shadow: 0px 0px 4px var(--message-border-color);
 }
 
 .message {
   color: var(--message-font-color);
-
+  width: 100%;
   position: relative;
 
   font-size: 15px;
   white-space: pre-wrap;
 
-  margin: 2px 7px 2px 10px;
+  margin: 2px 7px 2px 6px;
   padding: 4px 4px 4px 7px;
 
   background-color: var(--message-background-color);
   background-clip: padding-box;
   width: max-content;
-  max-width: 70%;
   min-width: 120px;
 
   border-radius: 4px;
@@ -31,6 +63,7 @@
 }
 
 .message.arrow {
+  border-radius: 4px 4px 4px 0px;
   margin-bottom: 5px;
 }
 
@@ -42,18 +75,21 @@
   width: 0;
 
   bottom: 0px;
-  left: -6px;
+  left: -8px;
   border-bottom: 9px solid var(--message-background-color);
   border-left: 9px solid transparent;
 }
 
 .message.arrow::before {
   bottom: 0px;
-  left: -7px;
+  left: -9px;
   border-bottom: 13px solid var(--message-border-color);
   border-left: 13px solid transparent;
   box-shadow: 0px 1px 0px var(--message-border-color);
   z-index: -1;
+}
+.message.arrow.right {
+  border-radius: 4px 4px 0px 4px;
 }
 
 .message.right {
@@ -66,19 +102,18 @@
 .message.right.arrow::before,
 .message.right.arrow::after {
   left: unset;
-  right: -6px;
+  right: -8px;
   border-right: 9px solid transparent;
 }
 .message.right.arrow::before {
   left: unset;
-  right: -7px;
+  right: -9px;
   border-right: 13px solid transparent;
 }
 
 .message .content {
   display: flex;
   flex-wrap: wrap;
-
   min-height: 0px;
 }
 
