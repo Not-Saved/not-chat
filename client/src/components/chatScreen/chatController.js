@@ -11,24 +11,25 @@ import Chat from "./chat"
 
 import { apiRequest } from "../../api"
 import useSocket from "../../hooks/useSocket"
+const roomId = process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
 
 const ChatController = () => {
-  const { messages, sendMessage, connect, connected, onlineUsers } = useSocket()
-  const [room, setRoom] = useState(null)
+  const {
+    messages,
+    sendMessage,
+    connect,
+    connected,
+    onlineUsers,
+    room,
+  } = useSocket()
 
   const [checked, setChecked] = useState(false)
 
   useEffect(() => {
     async function load() {
       try {
-        const roomId =
-          process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
-
         const messages = await apiRequest({ url: `/rooms/${roomId}/messages` })
         connect(messages.data)
-
-        const room = await apiRequest({ url: `/rooms/${roomId}` })
-        setRoom(room.data)
       } catch (e) {
         console.error(e)
       }
@@ -59,7 +60,7 @@ const ChatController = () => {
         connected={connected}
       />
       <Overlay visible={checked}>
-        <ChatOverlay />
+        <ChatOverlay room={room} onlineUsers={onlineUsers} />
       </Overlay>
     </>
   )

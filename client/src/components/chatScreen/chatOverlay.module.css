@@ -6,4 +6,75 @@
 
   margin-top: 48px;
   border-top: 1px solid var(--header-icon-color);
+  color: white;
+}
+
+.userList {
+  width: 100%;
+  height: calc(100% - 60px);
+  max-height: 100%;
+  overflow: auto;
+  margin: 6px 0px;
+  padding: 1px 12px;
+}
+
+.userList > div:first-child {
+  margin-top: 0px;
+}
+
+.userList > div:last-child {
+  margin-bottom: 0px;
+}
+
+.user {
+  margin: 3px 0px;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.picture {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 54px;
+}
+
+.picture > img {
+  width: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(158, 158, 158, 0.1);
+}
+
+.picture.online::after {
+  content: "";
+  background: rgb(113, 192, 119);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 5px;
+  right: 1px;
+  border: 1px solid rgba(230, 230, 230, 0.9);
+  background-clip: content-box;
+}
+
+.info {
+  width: 100%;
+  text-align: left;
+  margin-left: 12px;
+}
+
+.info > h2 {
+  font-size: 19px;
+}
+
+.info > p {
+  font-size: 13px;
+}
+
+.userList::-webkit-scrollbar {
+  width: 0px;
+  display: none;
 }

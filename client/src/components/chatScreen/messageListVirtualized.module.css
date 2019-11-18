@@ -1,4 +1,4 @@
-.list .last > div > div > div {
+.list .last > div > div > div:last-child {
   margin-bottom: 4px;
 }
 

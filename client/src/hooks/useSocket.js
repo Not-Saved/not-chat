@@ -1,9 +1,14 @@
 import { useState, useEffect, useReducer, useCallback } from "react"
 import io from "socket.io-client"
 
+import { apiRequest } from "../api"
+
+const roomId = process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
+
 export default function() {
   const [messages, dispatch] = useReducer(messageReducer, null)
   const [onlineUsers, setOnlineUsers] = useState([])
+  const [room, setRoom] = useState(null)
   const [socket, setSocket] = useState()
 
   const connect = useCallback(messages => {
@@ -20,16 +25,24 @@ export default function() {
     socket.emit("message", roomId, msg)
   }
 
+  async function getRoom(roomId) {
+    const room = await apiRequest({ url: `/rooms/${roomId}` })
+    setRoom(room.data)
+  }
+
   useEffect(() => {
     if (socket) {
       socket.on("message", msg => {
         dispatch({ type: "MESSAGE", payload: msg })
       })
+
       socket.on("online_users", ({ room, users }) => {
-        const roomId =
-          process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
-        if (room === roomId) setOnlineUsers(users)
+        if (room === roomId) {
+          setOnlineUsers(users)
+          getRoom(roomId)
+        }
       })
+
       return () => socket.disconnect()
     }
   }, [socket])
@@ -39,6 +52,7 @@ export default function() {
     connect,
     sendMessage,
     onlineUsers,
+    room,
     connected: Boolean(socket),
   }
 }

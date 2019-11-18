@@ -12,3 +12,15 @@ export const apiRequest = async config => {
     throw e.response || e
   }
 }
+
+export const giphyRequest = async params => {
+  try {
+    const response = await axios.request({
+      url: `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GATSBY_GIPHY_KEY}`,
+      params: params,
+    })
+    return response
+  } catch (e) {
+    throw e.response || e
+  }
+}
