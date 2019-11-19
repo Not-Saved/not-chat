@@ -67,35 +67,48 @@ function onDisconnect({ io, socket, user }) {
   removeSocket(user.id, socket.id);
 }
 
-async function onMessage({ io, user }, { room, msg }) {
+async function onMessage({ io, socket, user }, { room, msg }) {
   try {
     if (user.rooms.includes(room)) {
       const dbRoom = await Room.findOne({ _id: room }).populate("users");
       const payload = JSON.stringify({
         title: dbRoom.name,
         userName: user.userName,
-        body: msg,
-        icon: `/static/chat-icon-teal.png`
+        body: msg.content,
+        icon: `/static/chat-icon-teal.png`,
+        badge: `/static/chat-badge.png`
       });
 
       dbRoom.users
         .filter(u => String(u._id) !== String(user._id))
         .forEach(user => {
           user.pushSubscriptions.forEach(sub => {
-            webpush
-              .sendNotification(JSON.parse(sub), payload)
-              .catch(e => console.error(e));
+            webpush.sendNotification(JSON.parse(sub), payload).catch(e => {
+              cleanUpSubscription(user, sub);
+              console.error(e);
+            });
           });
         });
 
       const message = await new Message({
         user: user,
         room: room,
-        content: msg
+        content: msg.content,
+        createdAt: msg.createdAt,
+        status: "SUCCESS"
       }).save();
-      io.to(room).emit("message", message);
+      io.to(socket.id).emit("message_success", message);
+      socket.to(room).emit("message", message);
     }
   } catch (e) {
     console.log(e);
   }
+}
+
+async function cleanUpSubscription(user, sub) {
+  await User.updateOne(
+    { _id: user._id },
+    { $pull: { pushSubscriptions: sub } }
+  );
+  console.log("CLEANED SUBSCRIPTION: " + sub);
 }

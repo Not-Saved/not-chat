@@ -3,12 +3,12 @@ import React from "react"
 import styles from "./loadingChat.module.css"
 import { IoIosSync } from "react-icons/io"
 
-const LoadingChat = ({ loading }) => {
+const LoadingChat = ({ loading, text }) => {
   const isLoading = loading ? "" : styles.hidden
   return (
     <div className={`${styles.loading} ${isLoading}`}>
       <IoIosSync className="spin" />
-      <span>Loading messages</span>
+      <span>{text}</span>
     </div>
   )
 }

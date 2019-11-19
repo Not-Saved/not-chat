@@ -40,7 +40,12 @@ const Chat = ({ messages, sendMessage, connected, header }) => {
         />
       )
     } else {
-      return <LoadingChat loading={!messages || !connected} />
+      return (
+        <LoadingChat
+          loading={!messages || !connected}
+          text={connected ? "Loading messages" : "Connecting"}
+        />
+      )
     }
   }
 

@@ -67,10 +67,11 @@
 }
 
 .info > h2 {
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .info > p {
+  min-height: 16px;
   font-size: 13px;
 }
 

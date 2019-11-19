@@ -102,7 +102,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
 
   return (
     <>
-      <LoadingChat loading={loading} />
+      <LoadingChat loading={loading} text="Loading messages" />
       <AutoSizer onResize={handleResize}>
         {({ height, width }) => (
           <List
@@ -136,6 +136,7 @@ function renderMessage(message) {
           picture={`${message.user.picture}=s50`}
           mine={message.mine}
           arrow={message.arrow}
+          status={message.status}
         />
       )
     case "DATE_MESSAGE":

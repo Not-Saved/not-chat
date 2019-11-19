@@ -4,72 +4,75 @@ import { FiChevronRight } from "react-icons/fi"
 import isMobile from "../../util/isMobile"
 import styles from "./input.module.css"
 
-const Input = React.forwardRef(({ value, onChange, action, ...rest }, ref) => {
-  const isBottomRef = useRef(true)
-  const inputRef = useRef()
+const Input = React.forwardRef(
+  ({ value, onChange, action, disabled, ...rest }, ref) => {
+    const isBottomRef = useRef(true)
+    const inputRef = useRef()
 
-  useImperativeHandle(ref, () => inputRef.current)
+    useImperativeHandle(ref, () => inputRef.current)
 
-  function autoHeight() {
-    inputRef.current.style.height = "auto"
-    inputRef.current.style.height = inputRef.current.scrollHeight + "px"
+    function autoHeight() {
+      inputRef.current.style.height = "auto"
+      inputRef.current.style.height = inputRef.current.scrollHeight + "px"
 
-    if (isBottomRef.current) {
-      inputRef.current.scrollTop =
+      if (isBottomRef.current) {
+        inputRef.current.scrollTop =
+          inputRef.current.scrollHeight - inputRef.current.clientHeight
+      }
+    }
+
+    useEffect(() => {
+      autoHeight()
+    }, [value])
+
+    function handleChange(e) {
+      onChange && onChange(e.target.value)
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault()
+        if (isMobile()) {
+          onChange && onChange(e.target.value + "\n")
+        } else {
+          action && action(e.target.value)
+        }
+        inputRef.current.focus()
+      }
+    }
+
+    function handleClick(e) {
+      inputRef.current.focus()
+      action && action()
+    }
+
+    function handleScroll() {
+      isBottomRef.current =
+        inputRef.current.scrollTop ===
         inputRef.current.scrollHeight - inputRef.current.clientHeight
     }
+
+    return (
+      <div className={styles.input}>
+        <textarea
+          aria-label="message-textarea"
+          ref={inputRef}
+          onScroll={handleScroll}
+          rows={1}
+          value={value}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
+          maxLength={1000}
+          placeholder={disabled ? "Connecting..." : "Message"}
+          disabled={disabled}
+          {...rest}
+        />
+        <button className={styles.send} onClick={handleClick}>
+          <FiChevronRight />
+        </button>
+      </div>
+    )
   }
-
-  useEffect(() => {
-    autoHeight()
-  }, [value])
-
-  function handleChange(e) {
-    onChange && onChange(e.target.value)
-  }
-
-  function handleKeyPress(e) {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      if (isMobile()) {
-        onChange && onChange(e.target.value + "\n")
-      } else {
-        action && action(e.target.value)
-      }
-      inputRef.current.focus()
-    }
-  }
-
-  function handleClick(e) {
-    inputRef.current.focus()
-    action && action()
-  }
-
-  function handleScroll() {
-    isBottomRef.current =
-      inputRef.current.scrollTop ===
-      inputRef.current.scrollHeight - inputRef.current.clientHeight
-  }
-
-  return (
-    <div className={styles.input}>
-      <textarea
-        aria-label="message-textarea"
-        ref={inputRef}
-        onScroll={handleScroll}
-        rows={1}
-        value={value}
-        onChange={handleChange}
-        onKeyPress={handleKeyPress}
-        maxLength={1000}
-        placeholder="Message"
-        {...rest}
-      />
-      <button className={styles.send} onClick={handleClick}>
-        <FiChevronRight />
-      </button>
-    </div>
-  )
-})
+)
 
 export default Input

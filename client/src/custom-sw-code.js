@@ -12,15 +12,18 @@ self.addEventListener("push", event => {
   if (data) {
     const promiseChain = isClientFocused().then(clientIsFocused => {
       if (clientIsFocused && data.title !== "Not-Chat") {
+        console.log("Didn't show notification")
         return
       }
       let silentTemp = silent
+      console.log("Notification shown. Silent: " + silentTemp)
       if (!silent) {
         startSilentTimer()
       }
       return self.registration.showNotification(data.title, {
         body: `${data.userName}: ${data.body.substr(0, 80)}`,
         icon: data.icon,
+        badge: data.badge,
         renotify: true,
         tag: "redroom",
         silent: silentTemp,
