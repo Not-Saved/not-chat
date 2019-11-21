@@ -73,8 +73,8 @@ const GifMasonry = ({
 
   function onCellsRendered({ stopIndex }) {
     if (stopIndex + 1 > nextStop * 0.5) {
+      getGifs(query, nextStop)
       setNextStop(prev => prev + step)
-      getGifs(gifs.length + step)
     }
   }
 

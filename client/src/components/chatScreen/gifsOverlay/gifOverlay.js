@@ -42,19 +42,24 @@ const GifOverlay = () => {
     debounceQuery(value.trim())
   }, [value, debounceQuery])
 
-  async function getGifsWithOffset(query = "trending", offset = 0) {
+  async function getGifsWithOffset(query = "", offset = 0) {
     try {
-      const gifs = await giphyRequest({ q: query, limit: 50, offset: offset })
+      const url = query ? undefined : "gifs/trending"
+      const gifs = await giphyRequest(
+        { q: query, limit: 50, offset: offset },
+        url
+      )
       setGifs(prev => [...prev, ...gifs.data.data])
     } catch (e) {
       console.error(e)
     }
   }
 
-  async function getGifs(query = "trending", offset = 0) {
+  async function getGifs(query = "") {
     try {
       setLoading(true)
-      const gifs = await giphyRequest({ q: query, limit: 50, offset: offset })
+      const url = query ? undefined : "gifs/trending"
+      const gifs = await giphyRequest({ q: query, limit: 50, offset: 0 }, url)
       if (gifs.data.data.length) {
         setNextStop(0)
         setGifs(gifs.data.data)

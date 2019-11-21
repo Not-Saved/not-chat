@@ -12,8 +12,7 @@
 .gifOverlay > .masonry {
   flex: 1;
   width: 100%;
-  padding: 6px 0px;
-  margin-bottom: 5px;
+  padding: 8px 0px;
 }
 
 .gifOverlay > .masonry > div {
