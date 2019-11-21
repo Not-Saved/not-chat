@@ -1,0 +1,58 @@
+.gifOverlay {
+  height: calc(100% - 48px);
+  width: calc(100% - 10px);
+  margin: auto;
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--header-icon-color);
+  color: white;
+}
+
+.gifOverlay > .masonry {
+  flex: 1;
+  width: 100%;
+  padding: 6px 0px;
+  margin-bottom: 5px;
+}
+
+.gifOverlay > .masonry > div {
+  height: 100%;
+  width: calc(100% - 6px);
+  margin: auto;
+}
+
+.gifOverlay > .input {
+  display: flex;
+  border-top: 1px solid var(--header-icon-color);
+  width: 100%;
+  padding: 11px 10px 11px 7px;
+  height: 45px;
+}
+
+.gifOverlay > .input input {
+  flex: 1;
+  border: none;
+
+  margin: auto;
+  height: 100%;
+  background: none;
+  line-height: 100%;
+  font-size: 16px;
+
+  color: white;
+}
+
+.gifOverlay > .input > svg {
+  visibility: hidden;
+  font-size: 21px;
+  height: 100%;
+}
+
+.gifOverlay > .input > svg.loading {
+  visibility: visible;
+}
+
+.gifOverlay > .input input::placeholder {
+  color: var(--lighter-font-color);
+}

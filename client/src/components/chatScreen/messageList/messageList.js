@@ -7,15 +7,16 @@ import {
   CellMeasurerCache,
 } from "react-virtualized"
 
-import { useUserContext } from "../../hooks/contextHooks"
+import MessageListLoading from "./messageListLoading"
 import Message from "./message"
 import DateMessage from "./dateMessage"
 
-import isMobile from "../../util/isMobile"
+import { useUserContext } from "../../../hooks/contextHooks"
+
+import isMobile from "../../../util/isMobile"
 import prepareMessages from "./prepareMessages"
 
-import styles from "./messageListVirtualized.module.css"
-import LoadingChat from "./loadingChat"
+import styles from "./messageList.module.css"
 
 const measurerCache = new CellMeasurerCache({
   defaultHeight: 50,
@@ -73,7 +74,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
     }
   }
 
-  const onRowsRendered = debounce(() => {
+  const onRowsRendered = debounce(e => {
     if (isBottom) {
       toBottom(listRef, preparedMessages)
       setIsBottom(true)
@@ -102,7 +103,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
 
   return (
     <>
-      <LoadingChat loading={loading} text="Loading messages" />
+      <MessageListLoading loading={loading} text="Loading messages" />
       <AutoSizer onResize={handleResize}>
         {({ height, width }) => (
           <List

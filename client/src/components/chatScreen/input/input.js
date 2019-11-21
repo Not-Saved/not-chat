@@ -1,11 +1,14 @@
 import React, { useImperativeHandle, useEffect, useRef } from "react"
 import { FiChevronRight } from "react-icons/fi"
+import { IoIosAttach } from "react-icons/io"
 
-import isMobile from "../../util/isMobile"
+import { useOverlay } from "../../../hooks/contextHooks"
+import isMobile from "../../../util/isMobile"
 import styles from "./input.module.css"
 
 const Input = React.forwardRef(
   ({ value, onChange, action, disabled, ...rest }, ref) => {
+    const { setOverlayVisible } = useOverlay()
     const isBottomRef = useRef(true)
     const inputRef = useRef()
 
@@ -41,9 +44,14 @@ const Input = React.forwardRef(
       }
     }
 
-    function handleClick(e) {
+    function handleSendClick(e) {
       inputRef.current.focus()
       action && action()
+    }
+
+    function handleMediaClick(e) {
+      inputRef.current.focus()
+      setOverlayVisible("gifs")
     }
 
     function handleScroll() {
@@ -67,7 +75,10 @@ const Input = React.forwardRef(
           disabled={disabled}
           {...rest}
         />
-        <button className={styles.send} onClick={handleClick}>
+        <button className={styles.media} onClick={handleMediaClick}>
+          <IoIosAttach />
+        </button>
+        <button className={styles.send} onClick={handleSendClick}>
           <FiChevronRight />
         </button>
       </div>

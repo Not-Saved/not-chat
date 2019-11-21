@@ -1,8 +1,8 @@
 import React from "react"
 
-import styles from "./chatOverlay.module.css"
+import styles from "./usersOverlay.module.css"
 
-const ChatOverlay = ({ room, onlineUsers, connected }) => {
+const UsersOverlay = ({ room, onlineUsers, connected }) => {
   if (!room || !onlineUsers) return null
   return (
     <div className={styles.overlay}>
@@ -27,4 +27,4 @@ const ChatOverlay = ({ room, onlineUsers, connected }) => {
   )
 }
 
-export default ChatOverlay
+export default UsersOverlay

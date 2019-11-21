@@ -12,12 +12,9 @@ export default function(currentUser) {
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
 
-  const connect = useCallback(messages => {
-    dispatch({ type: "INITIATE", payload: messages })
-    const socket = io.connect("", {
-      path: "/ws/socket.io",
-    })
-    setSocket(socket)
+  const connect = useCallback(async () => {
+    await getRoomMessages(roomId)
+    getSocket()
   }, [])
 
   function sendMessage(msg) {
@@ -31,9 +28,19 @@ export default function(currentUser) {
     socket.emit("message", roomId, message)
   }
 
+  function getSocket() {
+    const socket = io.connect("", { path: "/ws/socket.io" })
+    setSocket(socket)
+  }
+
   async function getRoom(roomId) {
     const room = await apiRequest({ url: `/rooms/${roomId}` })
     setRoom(room.data)
+  }
+
+  async function getRoomMessages(roomId) {
+    const messages = await apiRequest({ url: `/rooms/${roomId}/messages` })
+    dispatch({ type: "INITIATE", payload: messages.data })
   }
 
   useEffect(() => {

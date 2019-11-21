@@ -13,13 +13,14 @@
 }
 
 .input > textarea {
+  order: 1;
   flex-grow: 1;
   overflow: visible;
   resize: none;
   max-height: 100px;
   line-height: 100%;
   font-size: 16px;
-  padding: 14px 0px 11px 10px;
+  padding: 14px 0px 11px 0px;
   border: 0px;
 
   color: var(--font-color);
@@ -35,6 +36,7 @@
 }
 
 .input > .send {
+  order: 2;
   visibility: hidden;
   opacity: 0;
   max-width: 38px;
@@ -56,12 +58,37 @@
   color: var(--icon-color);
 }
 
+.input > .media {
+  order: 0;
+  max-width: 35px;
+  min-width: 35px;
+
+  flex-basis: auto;
+  align-self: flex-end;
+  border: 0;
+  background: none;
+  text-align: center;
+  transition: all 0.2s ease;
+  color: var(--lighter-font-color);
+}
+
+.input > .media svg {
+  position: relative;
+  font-size: 29px;
+
+  bottom: 4px;
+}
+
 .input > textarea:focus {
   outline: none;
   outline-width: 0;
 }
 
-.input > textarea:focus + .send {
+.input > textarea:focus ~ .send {
   opacity: 1;
   visibility: visible;
+}
+
+.input > textarea:focus + .media {
+  color: var(--icon-color);
 }
