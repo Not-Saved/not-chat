@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useEffect, useRef } from "react"
 import { FiChevronRight } from "react-icons/fi"
-import { IoIosAttach } from "react-icons/io"
+import { IoMdAttach } from "react-icons/io"
 
 import { useOverlay } from "../../../hooks/contextHooks"
 import isMobile from "../../../util/isMobile"
@@ -76,7 +76,7 @@ const Input = React.forwardRef(
           {...rest}
         />
         <button className={styles.media} onClick={handleMediaClick}>
-          <IoIosAttach />
+          <IoMdAttach />
         </button>
         <button className={styles.send} onClick={handleSendClick}>
           <FiChevronRight />

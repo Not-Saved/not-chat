@@ -5,7 +5,7 @@
   margin-top: 48px;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--header-icon-color);
+  border-top: 2px solid rgb(255, 255, 255, 0.6);
   color: white;
 }
 
@@ -23,7 +23,7 @@
 
 .gifOverlay > .input {
   display: flex;
-  border-top: 1px solid var(--header-icon-color);
+  border-top: 2px solid rgb(255, 255, 255, 0.6);
   width: 100%;
   padding: 11px 10px 11px 7px;
   height: 45px;
@@ -43,6 +43,7 @@
 }
 
 .gifOverlay > .input > svg {
+  color: rgb(255, 255, 255, 0.6);
   visibility: hidden;
   font-size: 21px;
   height: 100%;

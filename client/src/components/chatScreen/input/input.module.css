@@ -20,7 +20,7 @@
   max-height: 100px;
   line-height: 100%;
   font-size: 16px;
-  padding: 14px 0px 11px 0px;
+  padding: 14px 0px 11px 3px;
   border: 0px;
 
   color: var(--font-color);
@@ -60,8 +60,8 @@
 
 .input > .media {
   order: 0;
-  max-width: 35px;
-  min-width: 35px;
+  max-width: 44px;
+  min-width: 44px;
 
   flex-basis: auto;
   align-self: flex-end;
@@ -74,9 +74,9 @@
 
 .input > .media svg {
   position: relative;
-  font-size: 29px;
+  font-size: 31px;
 
-  bottom: 4px;
+  bottom: 3px;
 }
 
 .input > textarea:focus {
@@ -87,8 +87,4 @@
 .input > textarea:focus ~ .send {
   opacity: 1;
   visibility: visible;
-}
-
-.input > textarea:focus + .media {
-  color: var(--icon-color);
 }
