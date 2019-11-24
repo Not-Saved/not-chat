@@ -21,3 +21,8 @@
 .clickable {
   cursor: pointer;
 }
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}

@@ -2,6 +2,10 @@
   margin-bottom: 5px;
 }
 
+.list .first > div > div > div:first-child {
+  margin-top: 5px;
+}
+
 .list {
   overflow-y: auto;
   overflow-x: hidden;

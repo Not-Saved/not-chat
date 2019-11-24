@@ -51,7 +51,7 @@
   white-space: pre-wrap;
 
   margin: 2px 7px 2px 5px;
-  padding: 4px 4px 4px 7px;
+  padding: 4px 7px 4px 7px;
 
   background-color: var(--message-background-color);
   background-clip: padding-box;
@@ -114,16 +114,28 @@
 
 .message .content {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   min-height: 0px;
+  max-width: 100%;
 }
 
 .message .text {
-  align-self: flex-end;
+  justify-self: flex-end;
   vertical-align: baseline;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-height: 18px;
   max-width: 100%;
-  margin-right: 10px;
+}
+
+.message .lastLine {
+  max-width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .message .angle {
@@ -133,6 +145,8 @@
   font-size: 10px;
   height: 10px;
   z-index: 1;
+  position: relative;
+  left: 3px;
 }
 
 .message .angle > svg.check {

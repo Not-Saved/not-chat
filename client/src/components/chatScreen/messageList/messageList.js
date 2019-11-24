@@ -26,11 +26,11 @@ const measurerCache = new CellMeasurerCache({
 
 const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
   const { user } = useUserContext()
+  const listRef = useRef(null)
+
   const [preparedMessages, setPreparedMessages] = useState([])
   const [isScrolling, setIsScrolling] = useState(false)
   const [loading, setLoading] = useState(styles.loading)
-
-  const listRef = useRef(null)
 
   useImperativeHandle(ref, () => ({ toBottom: toBottom }))
 
@@ -56,7 +56,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
     toBottomInner(listRef.current)
   }
 
-  const hideScrollbar = debounce(() => setIsScrolling(""), 1000)
+  const hideScrollbar = debounce(() => setIsScrolling(""), 750)
 
   const handleScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
     setIsScrolling(styles.scrolling)
@@ -82,7 +82,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
     if (loading) {
       setTimeout(() => setLoading(""), 200)
     }
-  }, 50)
+  }, 100)
 
   function getRow({ index, key, style, parent }) {
     const message = preparedMessages[index]

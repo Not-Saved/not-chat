@@ -17,11 +17,17 @@ module.exports = app => {
   app.get("/api/rooms/:id/messages", async (req, res) => {
     try {
       const { id } = req.params;
+      const { offset = 0, limit = 200 } = req.query;
       const messages = await Message.find({ room: id })
-        .limit(1000)
+        .limit(Number(limit))
+        .skip(Number(offset))
         .sort({ createdAt: -1 })
         .populate("user");
-      res.send(messages.reverse());
+      const response = {
+        hasMore: messages.length === Number(limit),
+        data: messages.reverse()
+      };
+      res.send(response);
     } catch (e) {
       res.status(400).send(e);
     }

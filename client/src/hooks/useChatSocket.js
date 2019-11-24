@@ -7,13 +7,14 @@ const roomId = process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
 
 export default function(currentUser) {
   const [messages, dispatch] = useReducer(messageReducer, null)
+  const [hasMoreMessages, setHasMoreMessages] = useState(true)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [room, setRoom] = useState(null)
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
 
   const connect = useCallback(async () => {
-    await getRoomMessages(roomId)
+    await getRoomMessages()
     getSocket()
   }, [])
 
@@ -38,9 +39,24 @@ export default function(currentUser) {
     setRoom(room.data)
   }
 
-  async function getRoomMessages(roomId) {
-    const messages = await apiRequest({ url: `/rooms/${roomId}/messages` })
-    dispatch({ type: "INITIATE", payload: messages.data })
+  async function getRoomMessages() {
+    const messages = await apiRequest({
+      url: `/rooms/${roomId}/messages`,
+      params: { limit: 1000 },
+    })
+    setHasMoreMessages(messages.data.hasMore)
+    dispatch({ type: "INITIATE", payload: messages.data.data })
+  }
+
+  async function getMoreMessages(offset) {
+    if (hasMoreMessages) {
+      const messages = await apiRequest({
+        url: `/rooms/${roomId}/messages`,
+        params: { offset: offset, limit: 50 },
+      })
+      setHasMoreMessages(messages.data.hasMore)
+      dispatch({ type: "LOAD_MORE", payload: messages.data.data })
+    }
   }
 
   useEffect(() => {
@@ -94,6 +110,8 @@ export default function(currentUser) {
 
   return {
     messages,
+    hasMoreMessages,
+    getMoreMessages,
     connect,
     sendMessage,
     onlineUsers,
@@ -110,6 +128,11 @@ function messageReducer(state, action) {
       return state.map(msg => (msg.status === "PENDING" ? action.payload : msg))
     case "INITIATE":
       return action.payload
+    case "LOAD_MORE":
+      const list = [...state]
+      list.unshift(...action.payload)
+      console.log(list)
+      return list
     default:
       return state
   }

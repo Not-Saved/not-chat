@@ -1,10 +1,18 @@
-.light.theme {
+.theme {
   --primary-color: rgb(105, 82, 114);
+}
+
+.theme * {
+  font-family: "Lato", sans-serif;
+}
+
+.light.theme {
   --primary-border-color: rgb(105, 82, 114);
   --primary-shadow-color: rgb(105, 82, 114, 0.4);
 
   --body-color: rgb(243, 243, 243);
   --font-color: rgba(0, 0, 0, 0.87);
+  --link-color: rgb(127, 80, 141);
   --lighter-font-color: grey;
   --icon-color: grey;
   --header-icon-color: white;
@@ -25,17 +33,12 @@
   --overlay-background-color: rgba(0, 0, 0, 0.92);
 }
 
-.light.theme *,
-.dark.theme * {
-  font-family: "Lato", sans-serif;
-}
-
 .dark.theme {
-  --primary-color: rgb(105, 82, 114);
   --primary-border-color: rgb(64, 54, 75);
 
   --body-color: rgb(45, 44, 48);
   --font-color: white;
+  --link-color: rgb(213, 189, 219);
   --lighter-font-color: rgb(194, 194, 194);
   --icon-color: white;
   --header-icon-color: white;
@@ -53,8 +56,4 @@
 
   --scrollbar-color: rgb(84, 82, 85);
   --overlay-background-color: rgba(0, 0, 0, 0.87);
-}
-
-.theme {
-  --primary-color: rgb(105, 82, 114);
 }
