@@ -2,16 +2,19 @@ import React from "react"
 
 const URLsRegex = /\b(http|https)?:\/\/\S+/gi
 
-export default function replaceURLs(string) {
+export default function replaceURLs(stringArray) {
   const reconstructed = []
-  string.split(" ").forEach((block, idx) => {
-    if (idx) reconstructed.push(" ")
+  stringArray.forEach((block, idx) => {
     if (block.match(URLsRegex)) {
-      reconstructed.push(
-        <a key={idx} href={block} rel="noopener noreferrer" target="_blank">
-          {block.substring(0, 200)}
-        </a>
-      )
+      const splittedLink = block
+        .substring(0, 200)
+        .match(/[\s\S]{1,8}/g)
+        .map((e, idx) => (
+          <a key={idx} href={block} rel="noopener noreferrer" target="_blank">
+            {e}
+          </a>
+        ))
+      reconstructed.push(splittedLink)
     } else {
       return reconstructed.push(block)
     }
