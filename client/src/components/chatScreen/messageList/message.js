@@ -12,7 +12,7 @@ const Message = ({ date, text, from, picture, mine, arrow, status }) => {
     const arrayWithAnchorTags = replaceURLs(wordArray).flat()
     return arrayWithAnchorTags
       .map(e =>
-        e.length > 8 && typeof e === "string" ? e.match(/[\s\S]{1,8}/g) : e
+        e.length > 10 && typeof e === "string" ? e.match(/[\s\S]{1,10}/g) : e
       )
       .flat()
   })
@@ -33,10 +33,12 @@ const Message = ({ date, text, from, picture, mine, arrow, status }) => {
             {textArray.map((block, outerIndex) => (
               <div key={outerIndex} className={styles.content}>
                 {block.map((block, innerIndex) => {
-                  return (
-                    <div key={innerIndex} className={styles.text}>
+                  return typeof block === "string" ? (
+                    <span key={innerIndex} className={styles.text}>
                       {block}
-                    </div>
+                    </span>
+                  ) : (
+                    block
                   )
                 })}
                 {textArray.length === outerIndex + 1 && (

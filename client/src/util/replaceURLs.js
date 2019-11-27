@@ -8,7 +8,7 @@ export default function replaceURLs(stringArray) {
     if (block.match(URLsRegex)) {
       const splittedLink = block
         .substring(0, 200)
-        .match(/[\s\S]{1,8}/g)
+        .match(/[\s\S]{1,10}/g)
         .map((e, idx) => (
           <a key={idx} href={block} rel="noopener noreferrer" target="_blank">
             {e}
