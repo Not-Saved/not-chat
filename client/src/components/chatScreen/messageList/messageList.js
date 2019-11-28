@@ -41,7 +41,6 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
   useEffect(() => {
     const preparedMessages = prepareMessages(messages, user)
     setPreparedMessages(preparedMessages)
-
     const lastMessage = messages.length && messages[messages.length - 1]
     if (lastMessage.user && lastMessage.user._id === user._id) {
       toBottom(listRef, preparedMessages)
@@ -94,7 +93,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
         columnIndex={0}
         rowIndex={index}
       >
-        <div className={message.isLast} style={style} role="row">
+        <div key={key} className={message.isLast} style={style} role="row">
           {renderMessage(message)}
         </div>
       </CellMeasurer>
@@ -114,7 +113,8 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
             className={`${styles.list} ${isScrolling} ${loading}`}
             rowCount={preparedMessages.length}
             rowHeight={measurerCache.rowHeight}
-            overscanRowCount={5}
+            overscanRowCount={10}
+            estimatedRowSize={50}
             rowRenderer={getRow}
             deferredMeasurementCache={measurerCache}
             onRowsRendered={onRowsRendered}

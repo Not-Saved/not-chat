@@ -70,7 +70,7 @@ const Input = React.forwardRef(
           value={value}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
-          maxLength={1500}
+          maxLength={500}
           placeholder={disabled ? "Connecting..." : "Message"}
           disabled={disabled}
           {...rest}

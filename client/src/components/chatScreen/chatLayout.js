@@ -16,8 +16,8 @@ const Chat = ({ messages, sendMessage, connected, header }) => {
   function handleMessage() {
     if (value.trim()) {
       onChange("")
-      setIsBottom(true)
       sendMessage(value.trim())
+      setIsBottom(true)
     }
   }
 
