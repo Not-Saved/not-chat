@@ -1,4 +1,4 @@
-var proxy = require("http-proxy-middleware")
+var { createProxyMiddleware } = require("http-proxy-middleware")
 
 module.exports = {
   siteMetadata: {
@@ -50,9 +50,22 @@ module.exports = {
     },
   ],
   developMiddleware: app => {
-    app.use(proxy("/oauth/google", { target: "http://localhost:5000" }))
-    app.use(proxy("/api/**", { target: "http://localhost:5000" }))
-    app.use(proxy("/ws/**", { target: "http://localhost:5000", ws: true }))
-    app.use(proxy("/uploads/**", { target: "http://localhost:5000" }))
+    app.use(
+      createProxyMiddleware("/oauth/google", {
+        target: "http://localhost:5000",
+      })
+    )
+    app.use(
+      createProxyMiddleware("/api/**", { target: "http://localhost:5000" })
+    )
+    app.use(
+      createProxyMiddleware("/ws/**", {
+        target: "http://localhost:5000",
+        ws: true,
+      })
+    )
+    app.use(
+      createProxyMiddleware("/uploads/**", { target: "http://localhost:5000" })
+    )
   },
 }

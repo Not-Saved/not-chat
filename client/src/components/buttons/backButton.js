@@ -1,7 +1,7 @@
 import React from "react"
 import { AiOutlineRollback } from "react-icons/ai"
 
-import styles from "./backButton.module.css"
+import * as styles from "./backButton.module.css"
 import { Link } from "gatsby"
 
 const BackButton = ({ reload }) => {

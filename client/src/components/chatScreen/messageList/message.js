@@ -1,7 +1,7 @@
 import React from "react"
 import { FaCheck, FaRegCircle } from "react-icons/fa"
 
-import styles from "./message.module.css"
+import * as styles from "./message.module.css"
 import replaceURLs from "../../../util/replaceURLs"
 
 const Message = ({ date, text, from, picture, mine, arrow, status }) => {
@@ -26,7 +26,7 @@ const Message = ({ date, text, from, picture, mine, arrow, status }) => {
           </div>
         </div>
         <div className={[styles.message, isMine, isArrow].join(" ")}>
-          <div className={styles.from}>
+          <div>
             <strong>{from}</strong>
           </div>
           <div className={styles.contentContainer}>
@@ -43,7 +43,7 @@ const Message = ({ date, text, from, picture, mine, arrow, status }) => {
                 })}
                 {textArray.length === outerIndex + 1 && (
                   <div className={styles.angle}>
-                    <div className={styles.time}>{date}</div>
+                    <div>{date}</div>
                     {status === "PENDING" ? (
                       <FaRegCircle className={styles.check} />
                     ) : (

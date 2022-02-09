@@ -1,11 +1,11 @@
 import React from "react"
 import { IoIosSync } from "react-icons/io"
 
-import styles from "./splashScreen.module.css"
+import { splash } from "./splashScreen.module.css"
 
 const SplashScreen = () => {
   return (
-    <div className={styles.splash}>
+    <div className={splash}>
       <IoIosSync className="spin" />
     </div>
   )

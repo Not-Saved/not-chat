@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./dateMessage.module.css"
+import * as styles from "./dateMessage.module.css"
 
 const DateMessage = React.memo(({ text }) => {
   return (

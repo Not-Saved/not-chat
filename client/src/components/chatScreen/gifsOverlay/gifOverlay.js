@@ -4,7 +4,7 @@ import { debounce } from "lodash"
 import Masonry from "../../gif/gifMasonry"
 import { giphyRequest } from "../../../api"
 
-import styles from "./gifOverlay.module.css"
+import * as styles from "./gifOverlay.module.css"
 import { useOverlay } from "../../../hooks/contextHooks"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 

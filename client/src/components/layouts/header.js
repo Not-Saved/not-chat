@@ -1,8 +1,8 @@
 import React from "react"
-import styles from "./header.module.css"
+import { header } from "./header.module.css"
 
 const Header = ({ children }) => {
-  return <header className={styles.header}>{children}</header>
+  return <header className={header}>{children}</header>
 }
 
 export default Header

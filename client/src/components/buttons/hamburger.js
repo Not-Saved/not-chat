@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./hamburger.module.css"
+import * as styles from "./hamburger.module.css"
 
 const Hamburger = ({ checked, onChange }) => {
   return (

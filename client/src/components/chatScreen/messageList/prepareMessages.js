@@ -1,4 +1,4 @@
-import styles from "./messageList.module.css"
+import * as styles from "./messageList.module.css"
 
 export default function prepareMessages(messages, currentUser) {
   const preparedMessages = []

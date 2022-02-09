@@ -3,7 +3,7 @@ import React from "react"
 import ErrorIcon from "../../svg/errorIcon"
 import BackButton from "../buttons/backButton"
 
-import styles from "./errorLayout.module.css"
+import * as styles from "./errorLayout.module.css"
 
 const ErrorLayout = ({ headerText, subText, reload }) => (
   <div className={styles.error}>

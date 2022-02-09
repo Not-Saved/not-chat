@@ -6,6 +6,7 @@ import {
   CellMeasurer,
   CellMeasurerCache,
 } from "react-virtualized"
+import { Virtuoso } from "react-virtuoso"
 
 import MessageListLoading from "./messageListLoading"
 import Message from "./message"
@@ -30,7 +31,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
 
   const [preparedMessages, setPreparedMessages] = useState([])
   const [isScrolling, setIsScrolling] = useState(false)
-  const [loading, setLoading] = useState(styles.loading)
+  const [loading, setLoading] = useState("")
 
   useImperativeHandle(ref, () => ({ toBottom: toBottom }))
 
@@ -53,7 +54,7 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
 
   function toBottom(listRef, messages) {
     function toBottomInner(ref) {
-      ref && ref.scrollToRow(messages.length - 1)
+      ref && ref.scrollToIndex(messages.length - 1)
     }
     toBottomInner(listRef.current)
   }
@@ -86,20 +87,12 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
     }
   }, 100)
 
-  function getRow({ index, key, style, parent }) {
+  function getRow(index) {
     const message = preparedMessages[index]
     return (
-      <CellMeasurer
-        key={key}
-        cache={measurerCache}
-        parent={parent}
-        columnIndex={0}
-        rowIndex={index}
-      >
-        <div key={key} className={message.isLast} style={style} role="row">
-          {renderMessage(message)}
-        </div>
-      </CellMeasurer>
+      <div key={index} className={message.isLast}>
+        {renderMessage(message)}
+      </div>
     )
   }
 
@@ -108,21 +101,16 @@ const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
       <MessageListLoading loading={loading} text="Loading messages" />
       <AutoSizer onResize={handleResize}>
         {({ height, width }) => (
-          <List
-            height={height}
-            width={width}
+          <Virtuoso
+            style={{ height, width }}
             ref={listRef}
-            onScroll={handleScroll}
+            // onScroll={handleScroll}
             className={`${styles.list} ${isScrolling} ${loading}`}
-            rowCount={preparedMessages.length}
-            rowHeight={measurerCache.rowHeight}
-            overscanRowCount={10}
-            estimatedRowSize={50}
-            rowRenderer={getRow}
-            deferredMeasurementCache={measurerCache}
-            onRowsRendered={onRowsRendered}
+            totalCount={preparedMessages.length}
+            item={getRow}
+            // itemsRendered={onRowsRendered}
             aria-label="message-list"
-          ></List>
+          ></Virtuoso>
         )}
       </AutoSizer>
     </>

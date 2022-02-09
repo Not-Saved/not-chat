@@ -4,7 +4,7 @@ import { IoMdAttach } from "react-icons/io"
 
 import { useOverlay } from "../../../hooks/contextHooks"
 import isMobile from "../../../util/isMobile"
-import styles from "./input.module.css"
+import * as styles from "./input.module.css"
 
 const Input = React.forwardRef(
   ({ value, onChange, action, disabled, ...rest }, ref) => {

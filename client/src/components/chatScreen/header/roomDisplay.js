@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./roomDisplay.module.css"
+import * as styles from "./roomDisplay.module.css"
 
 const RoomDisplay = ({ room, onlineUsers, connected }) => {
   if (!room || !onlineUsers) return null

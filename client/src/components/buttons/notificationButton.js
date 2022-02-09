@@ -9,7 +9,7 @@ import {
 } from "../../util/pushNotifications"
 import { useUserContext } from "../../hooks/contextHooks"
 
-import styles from "./notificationButton.module.css"
+import * as styles from "./notificationButton.module.css"
 
 const NotificationButton = () => {
   const [permission, setPermission] = useState(null)

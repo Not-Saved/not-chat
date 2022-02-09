@@ -27,7 +27,7 @@ body {
   background: var(--body-color);
 }
 
-div[role="group"][tabindex] {
+#gatsby-focus-wrapper {
   height: 100%;
   width: 100%;
 }
@@ -39,7 +39,7 @@ div[role="group"][tabindex] {
 }
 
 @media (min-width: 1100px) and (min-height: 800px) {
-  div[role="group"][tabindex] {
+  #gatsby-focus-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -4,7 +4,7 @@ import MessageList from "./messageList/messageList"
 import MessageListLoading from "./messageList/messageListLoading"
 import Input from "./input/input"
 
-import styles from "./chatLayout.module.css"
+import * as styles from "./chatLayout.module.css"
 
 const Chat = ({ messages, sendMessage, connected, header }) => {
   const [value, onChange] = useState("")

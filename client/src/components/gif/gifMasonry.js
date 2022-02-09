@@ -7,7 +7,7 @@ import {
   AutoSizer,
 } from "react-virtualized"
 
-import styles from "./gifMasonry.module.css"
+import * as styles from "./gifMasonry.module.css"
 import Gif from "./gif"
 
 const cache = new CellMeasurerCache({
@@ -82,7 +82,6 @@ const GifMasonry = ({
     <AutoSizer onResize={handleResize}>
       {({ height, width }) => (
         <Masonry
-          className={styles.masonry}
           ref={masonryRef}
           cellCount={gifs.length}
           cellMeasurerCache={cache}

@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function(props) {
+export default function f(props) {
   return (
     <svg
       height="512pt"

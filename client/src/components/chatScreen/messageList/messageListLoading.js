@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./messageListLoading.module.css"
+import * as styles from "./messageListLoading.module.css"
 import { IoIosSync } from "react-icons/io"
 
 const LoadingChat = ({ loading, text }) => {

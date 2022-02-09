@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./overlay.module.css"
+import * as styles from "./overlay.module.css"
 
 const Overlay = ({ visible, children }) => {
   const isVisible = visible ? styles.visible : ""

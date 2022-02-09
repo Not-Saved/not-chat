@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./usersOverlay.module.css"
+import * as styles from "./usersOverlay.module.css"
 
 const UsersOverlay = ({ room, onlineUsers, connected }) => {
   if (!room || !onlineUsers) return null

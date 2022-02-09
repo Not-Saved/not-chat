@@ -3,7 +3,7 @@ import { IoMdMore } from "react-icons/io"
 
 import { useThemeContext } from "../../hooks/contextHooks"
 
-import styles from "./themeButton.module.css"
+import * as styles from "./themeButton.module.css"
 
 const ThemeButton = () => {
   const { changeTheme } = useThemeContext()

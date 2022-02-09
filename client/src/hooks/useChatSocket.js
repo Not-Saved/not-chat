@@ -5,7 +5,7 @@ import { apiRequest } from "../api"
 
 const roomId = process.env.GATSBY_DEFAULT_ROOM || "5db0a60c89a5582114d5c2e3"
 
-export default function(currentUser) {
+export default function Foo(currentUser) {
   const [messages, dispatch] = useReducer(messageReducer, null)
   const [hasMoreMessages, setHasMoreMessages] = useState(true)
   const [onlineUsers, setOnlineUsers] = useState([])

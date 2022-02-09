@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { AiOutlineLoading } from "react-icons/ai"
 
-import styles from "./gifMasonry.module.css"
+import * as styles from "./gifMasonry.module.css"
 
 const Gif = ({ gif, still, width, height, isScrolling, onClick }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -21,7 +21,7 @@ const Gif = ({ gif, still, width, height, isScrolling, onClick }) => {
       <div>
         {loadGif && (
           <img
-            className={`${styles.gif}`}
+            className={styles.gif}
             onLoad={() => setReveal(true)}
             onClick={() => onClick(gif)}
             src={gif.images.fixed_width.webp}

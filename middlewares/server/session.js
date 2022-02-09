@@ -1,14 +1,14 @@
 const keys = require("../../config/keys");
 const passport = require("passport");
 const expressSession = require("express-session");
-const MongoStore = require("connect-mongo")(expressSession);
+const MongoStore = require("connect-mongo");
 
 const session = expressSession({
-	store: new MongoStore({ url: keys.mongoURI }),
+	store: MongoStore.create({ mongoUrl: keys.mongoURI }),
 	secret: keys.cookieKey,
 	resave: false,
 	saveUninitialized: false,
-	cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
+	cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
 });
 const passportInit = passport.initialize();
 const passportSess = passport.session();
