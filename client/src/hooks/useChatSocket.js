@@ -131,7 +131,6 @@ function messageReducer(state, action) {
     case "LOAD_MORE":
       const list = [...state]
       list.unshift(...action.payload)
-      console.log(list)
       return list
     default:
       return state

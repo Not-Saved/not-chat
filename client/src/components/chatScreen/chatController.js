@@ -22,6 +22,7 @@ const ChatController = () => {
   const {
     messages,
     sendMessage,
+    hasMoreMessages,
     connect,
     connected,
     onlineUsers,
@@ -76,6 +77,7 @@ const ChatController = () => {
         header={header}
         messages={messages}
         sendMessage={sendMessage}
+        hasMoreMessages={hasMoreMessages}
         connected={connected}
       />
     </OverlayProvider>

@@ -24,13 +24,16 @@ const measurerCache = new CellMeasurerCache({
   fixedWidth: true,
 })
 
-const MessageList = ({ messages, isBottom, setIsBottom }, ref) => {
+const MessageList = (
+  { messages, isBottom, setIsBottom, hasMoreMessages },
+  ref
+) => {
   const { user } = useUserContext()
   const listRef = useRef(null)
 
   const [preparedMessages, setPreparedMessages] = useState([])
   const [isScrolling, setIsScrolling] = useState(false)
-  const [loading, setLoading] = useState(styles.loading)
+  const [loading, setLoading] = useState(hasMoreMessages ? styles.loading : "")
 
   useImperativeHandle(ref, () => ({ toBottom: toBottom }))
 
@@ -137,7 +140,7 @@ function renderMessage(message) {
           date={message.createdAt}
           text={message.content}
           from={message.user.userName}
-          picture={`${message.user.picture}=s50`}
+          picture={message.user.picture}
           mine={message.mine}
           arrow={message.arrow}
           status={message.status}

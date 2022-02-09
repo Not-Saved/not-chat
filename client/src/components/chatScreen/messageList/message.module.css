@@ -9,6 +9,7 @@
   max-width: 350px;
   display: flex;
   padding-left: 6px;
+  margin-right: 5px;
 }
 
 .container.right,
@@ -34,7 +35,7 @@
 .container .picture > div {
   height: max-content;
   width: 100%;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 .container .picture > div > img {
   border-radius: 50%;
