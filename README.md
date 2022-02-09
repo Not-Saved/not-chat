@@ -1,4 +1,3 @@
-<br />
 <div align="center">
   <h3 align="center">Not-Chat</h3>
   <p align="center">
