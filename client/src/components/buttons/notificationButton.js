@@ -42,6 +42,7 @@ const NotificationButton = () => {
       onClick={requestPermission}
       disabled={permission === "denied"}
       style={{ visibility }}
+      title="Activates push notifications"
     >
       <IoMdNotificationsOff className="clickable" />
     </button>

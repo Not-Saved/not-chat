@@ -9,10 +9,13 @@
   width: 35px;
 }
 
+.op {
+  opacity: 0.5;
+}
+
 .button > svg {
-  font-size: 38px;
+  font-size: 30px;
   text-align: center;
   visibility: center;
-
   color: var(--header-icon-color);
 }

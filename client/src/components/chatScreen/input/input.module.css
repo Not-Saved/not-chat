@@ -1,7 +1,7 @@
 .input {
   width: 100%;
 
-  min-height: 45px;
+  min-height: 50px;
   height: max-content;
 
   border-top: 1px solid var(--input-border-color);
@@ -20,7 +20,7 @@
   max-height: 100px;
   line-height: 100%;
   font-size: 16px;
-  padding: 14px 0px 11px 3px;
+  padding: 15px 0px 11px 4px;
   border: 0px;
 
   color: var(--font-color);
@@ -48,6 +48,7 @@
   background: none;
   text-align: center;
   transition: all 0.2s ease;
+  height: 44px;
 }
 
 .input > .send svg {
@@ -70,6 +71,7 @@
   text-align: center;
   transition: all 0.2s ease;
   color: var(--lighter-font-color);
+  height: 41px;
 }
 
 .input > .media svg {

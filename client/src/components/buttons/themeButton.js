@@ -1,19 +1,24 @@
 import React from "react"
-import { IoMdMore } from "react-icons/io"
+import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md"
 
 import { useThemeContext } from "../../hooks/contextHooks"
 
 import * as styles from "./themeButton.module.css"
 
 const ThemeButton = () => {
-  const { changeTheme } = useThemeContext()
+  const { changeTheme, theme } = useThemeContext()
   return (
     <button
       aria-label="theme-button"
       className={styles.button}
       onClick={changeTheme}
+      title="Toogle dark mode"
     >
-      <IoMdMore className="clickable" />
+      {theme === "dark" ? (
+        <MdDarkMode className="clickable" />
+      ) : (
+        <MdOutlineDarkMode className={`clickable ${styles.op}`} />
+      )}
     </button>
   )
 }
