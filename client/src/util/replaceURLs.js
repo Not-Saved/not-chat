@@ -8,7 +8,7 @@ export default function replaceURLs(stringArray) {
   stringArray.forEach((block, idx) => {
     if (block.match(URLsRegex)) {
       const link = (
-        <a href={block} rel="noopener noreferrer" target="_blank">
+        <a key="link" href={block} rel="noopener noreferrer" target="_blank">
           {block}
         </a>
       )
