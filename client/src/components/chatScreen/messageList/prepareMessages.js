@@ -54,7 +54,9 @@ function checkIfArrow(messages, index, user) {
 
 function checkIfDifferentDay(index, messages, currentMessage) {
   const lastMessage = messages[index - 1] || { createdAt: "null" }
-  const lastMessageDay = new Date(lastMessage.createdAt).getDay()
-  const currentMessageDay = new Date(currentMessage.createdAt).getDay()
+  const d1 = new Date(lastMessage.createdAt)
+  const lastMessageDay = "" + d1.getDate() + d1.getMonth() + d1.getFullYear()
+  const d2 = new Date(currentMessage.createdAt)
+  const currentMessageDay = "" + d2.getDate() + d2.getMonth() + d2.getFullYear()
   return lastMessageDay !== currentMessageDay
 }
