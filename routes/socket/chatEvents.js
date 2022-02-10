@@ -56,7 +56,6 @@ function joinRooms({ io, socket, user }) {
 }
 
 function onDisconnect({ io, socket, user }) {
-	console.log(socket.adapter.rooms.keys());
 	socket.adapter.rooms.forEach((room, key) => {
 		removeRoom(key, user.id);
 		io.to(key).emit("online_users", {
