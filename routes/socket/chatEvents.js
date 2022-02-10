@@ -22,8 +22,7 @@ module.exports = (io) => {
 			//socket.on("join_room", room => onJoinRoom(server, { room}));
 			joinRooms(server);
 
-			socket.on("disconnecting", () => onDisconnect(server));
-
+			socket.on("disconnecting", () => onDisconnect({ io, socket, user }));
 			socket.on("message", (room, msg) => onMessage(server, { room, msg }));
 		}
 	});
@@ -46,6 +45,7 @@ async function onJoinRoom({ io, socket, user }, { room }) {
 
 function joinRooms({ io, socket, user }) {
 	user.rooms.forEach((room) => {
+		room = room.toString();
 		socket.join(room);
 		addRoom(room, user.id);
 		io.to(room).emit("online_users", {
@@ -56,14 +56,14 @@ function joinRooms({ io, socket, user }) {
 }
 
 function onDisconnect({ io, socket, user }) {
-	const userRooms = Object.values(socket.rooms);
-	userRooms.forEach((room) => {
-		io.to(room).emit("online_users", {
-			room: room,
-			users: _.uniq(rooms[room]),
+	console.log(socket.adapter.rooms.keys());
+	socket.adapter.rooms.forEach((room, key) => {
+		removeRoom(key, user.id);
+		io.to(key).emit("online_users", {
+			room: key,
+			users: _.uniq(rooms[key]),
 		});
 	});
-	Object.values(rooms).forEach((room) => removeRoom(room, user.id));
 	removeSocket(user.id, socket.id);
 }
 
